@@ -1,0 +1,218 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3";
+
+$navy: #223e52;
+$green: #9aab75;
+$pale: #d6cc70;
+$yellow: #ffd64f;
+$orange: #f7941e;
+$purple: #db6fbc;
+
+$bg: rgba(white, 0.1);
+
+*{
+  @include box-sizing(border-box);
+}
+html{
+  font-family: "futura-pt";
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+label{
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+body{
+  width: 100%;
+  height: 100%;
+  background: $navy; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  #396172 0%, #192b33 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#396172), color-stop(100%,#192b33)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  #396172 0%,#192b33 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  #396172 0%,#192b33 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  #396172 0%,#192b33 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  #396172 0%,#192b33 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#396172', endColorstr='#192b33',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+#top{
+  height: 80px;
+}
+#logo{
+  width: 130px;
+  margin: 30px;
+}
+#scoring{
+  float:right;
+  padding: 13px;
+  width: 500px;
+  text-align: left;
+  div{
+    padding-right: 15px;
+    float: right;
+    text-align: right;
+  }
+  label{
+    color: $yellow;
+  }
+  span{
+    color: #fff;
+    font-size: 52px;
+    font-weight: 100;
+  }
+  ul{
+    float: right;
+  }
+  li{
+    float: left;
+    padding: 8px 10px;
+    margin: 10px;
+    background-color: $pale;
+    color: $navy;
+  }
+}
+#level-meter{
+  height: 20px;
+  overflow: hidden;
+  background-color: rgba($navy,0.3);
+  @include box-shadow(0 0 1px 1px rgba(#fff,0.3));
+  label{
+    position: absolute;
+    right: 0px;
+    padding: 4px;
+    text-align: right;
+    color: #fff
+  }
+}
+#experience{
+  height: 100%;
+  width: 24%;
+  background-color: $purple;
+  @include box-shadow(0 0 1px 1px rgba($green,0.3));
+  border-right: 1px solid rgba(white,0.7);
+}
+#controls{
+  width: 350px;
+  height: 35px;
+  background-color: $purple;
+  span{
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  img{
+    width: 30px;
+    margin-left: 5px;
+  }
+  li{
+    height: 60px;
+    width: 60px;
+    float: right;
+    text-align: center;
+    cursor: pointer;
+    background-color: $yellow;
+    line-height: 8px;
+    padding-top: 8px;
+    @include box-shadow(inset $navy 0 0 0 1px);
+    &:active{
+      background-color: white;
+    }
+    label{
+      letter-spacing: 1px;
+      font-size: 10px;
+      color: $navy;
+    }
+  }
+  #help{
+    padding-top: 3px;
+  }
+}
+#play-area{
+  float: left;
+  width: 100%;
+  color: #fff;
+  font-size: 28px;
+  padding: 30px 0 0 50px;
+  text-align: right;
+  overflow: auto;
+}
+#composer{
+  .whole{
+    width: 800px;
+  }
+  .grid{
+    height: 287px;
+    border-bottom: 7px solid #fff;
+    @include box-shadow(inset rgba(#fff,0.3) 0 0 1px 1px);
+  }
+  .column{
+    width: 12.5%;
+    float:left;
+  }
+  .row{
+    height: 40px;
+  }
+  .clear{
+    font-size: 16px;
+    font-weight: 400;
+    background-color: $bg;
+    float: left;
+    padding: 7px;
+  }
+  .num{
+    font-weight: 600;
+  }
+}
+#source-container{
+  margin-top: 10px;
+  width:800px;
+  z-index: 5;
+}
+.pep{
+  float: left;
+  height: 33px;
+  background-color: $bg;
+  font-size: 13px;
+  padding: 1px;
+  line-height: 12px;
+  font-weight: 600;
+  z-index: 5;
+  text-align: right;
+  cursor: move;
+  .numerator{
+    text-decoration: underline;
+  }
+}
+.source{
+  float: left;
+  height: 40px;
+  margin: 5px;
+}
+.half{
+  width: 400px;
+  .pep{
+    color: $yellow;
+    border-top: 7px solid $yellow;
+  }
+}
+.fourth{
+  width: 200px;
+  .pep{
+    color: $purple;
+    border-top: 7px solid $purple;
+  }
+}
+.eighth{
+  width: 100px;
+  .pep{
+    color: $orange;
+    border-top: 7px solid $orange;
+  }
+}
