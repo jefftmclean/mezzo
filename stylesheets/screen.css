@@ -179,7 +179,7 @@ body {
 /* line 93, ../sass/screen.scss */
 #experience {
   height: 100%;
-  width: 24%;
+  width: 68%;
   background-color: #db6fbc;
   -webkit-box-shadow: 0 0 1px 1px rgba(154, 171, 117, 0.3);
   -moz-box-shadow: 0 0 1px 1px rgba(154, 171, 117, 0.3);
@@ -273,20 +273,21 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
   float: left;
   padding: 7px;
+  cursor: pointer;
 }
-/* line 169, ../sass/screen.scss */
+/* line 170, ../sass/screen.scss */
 #composer .num {
   font-weight: 600;
 }
 
-/* line 173, ../sass/screen.scss */
+/* line 174, ../sass/screen.scss */
 #source-container {
-  margin-top: 10px;
+  margin-top: 15px;
   width: 800px;
   z-index: 5;
 }
 
-/* line 178, ../sass/screen.scss */
+/* line 179, ../sass/screen.scss */
 .pep {
   float: left;
   height: 33px;
@@ -299,43 +300,43 @@ body {
   text-align: right;
   cursor: move;
 }
-/* line 189, ../sass/screen.scss */
+/* line 190, ../sass/screen.scss */
 .pep .numerator {
   text-decoration: underline;
 }
 
-/* line 193, ../sass/screen.scss */
+/* line 194, ../sass/screen.scss */
 .source {
   float: left;
   height: 40px;
   margin: 5px;
 }
 
-/* line 198, ../sass/screen.scss */
+/* line 199, ../sass/screen.scss */
 .half {
   width: 400px;
 }
-/* line 200, ../sass/screen.scss */
+/* line 201, ../sass/screen.scss */
 .half .pep {
   color: #ffd64f;
   border-top: 7px solid #ffd64f;
 }
 
-/* line 205, ../sass/screen.scss */
+/* line 206, ../sass/screen.scss */
 .fourth {
   width: 200px;
 }
-/* line 207, ../sass/screen.scss */
+/* line 208, ../sass/screen.scss */
 .fourth .pep {
   color: #db6fbc;
   border-top: 7px solid #db6fbc;
 }
 
-/* line 212, ../sass/screen.scss */
+/* line 213, ../sass/screen.scss */
 .eighth {
   width: 100px;
 }
-/* line 214, ../sass/screen.scss */
+/* line 215, ../sass/screen.scss */
 .eighth .pep {
   color: #f7941e;
   border-top: 7px solid #f7941e;
