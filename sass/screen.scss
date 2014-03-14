@@ -80,8 +80,7 @@ body{
 #level-meter{
   height: 20px;
   overflow: hidden;
-  background-color: rgba($navy,0.3);
-  @include box-shadow(0 0 1px 1px rgba(#fff,0.3));
+  @include box-shadow(0 -1px 0 0 #fff);
   label{
     position: absolute;
     right: 0px;
@@ -94,8 +93,6 @@ body{
   height: 100%;
   width: 68%;
   background-color: $purple;
-  @include box-shadow(0 0 1px 1px rgba($green,0.3));
-  border-right: 1px solid rgba(white,0.7);
 }
 #controls{
   width: 350px;
