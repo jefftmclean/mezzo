@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mezzo</title>
+  <link rel="stylesheet" href="stylesheets/screen.css">
+  <script type="text/javascript" src="//use.typekit.net/ooz6urs.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+  <script src="javascript/jquery.pep.js"></script>
+  <script src="javascript/drag.js"></script>
+  <script>
+  $(document).ready(function(){
+    $(document.body).on("touchmove", function(event) {
+      event.preventDefault();
+    });
+    $('.pep').pep();
+  });
+  </script>
+</head>
+<body>
+  <div id="header">
+    <div id="top">
+      <img id="logo" src="assets/logo.svg" alt="mezzo">
+      <span id="instructions"></span>
+      <div id="scoring">
+        <ul>
+          <li>Share Score</li>
+          <li>Leaderboard</li>
+        </ul>
+        <div>
+          <label>Total Score</label>
+          <span>239</span>
+        </div>
+      </div>
+    </div>
+    <div id="level-meter">
+      <label>next level: 761</label>
+      <div id="experience"></div>
+    </div>
+    <ul id="controls">
+      <li id="check">
+        <img src="assets/check.svg">
+        <br><label>check</label>
+      </li>
+      <li id="play">
+        <img src="assets/play.svg">
+        <br><label>play</label>
+      </li>
+      <li id="listen">
+        <img src="assets/listen.svg">
+        <br><label>listen</label>
+      </li>
+      <li id="help">
+        <img src="assets/help.svg">
+        <br><label>how to play</label>
+      </li>
+      <span>Level 1<span>
+    </ul>
+  </div>
+  <div id="play-area">
+    <div id="composer">
+      <div class="whole">
+        <div class="grid">
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+          <div class="column">
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+          </div>
+        </div>
+        <div class="clear">Clear Board</div>
+        <span class="num">1<span>
+      </div>
+    </div>
+    <div id="source-container">
+      <div class="source half">
+        <div class="pep half"><span class="numerator">1</span><br>2</div>
+      </div>
+      <div class="source fourth">
+        <div class="pep fourth"><span class="numerator">1</span><br>4</div>
+      </div>
+      <div class="source eighth">
+        <div class="pep eighth"><span class="numerator">1</span><br>8</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
