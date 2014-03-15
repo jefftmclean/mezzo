@@ -79,8 +79,7 @@ body{
 }
 #level-meter{
   height: 20px;
-  overflow: hidden;
-  @include box-shadow(0 -1px 0 0 #fff);
+  @include box-shadow(0 -2px 0 0 #fff);
   label{
     position: absolute;
     right: 0px;
@@ -91,18 +90,21 @@ body{
 }
 #experience{
   height: 100%;
-  width: 68%;
-  background-color: $purple;
+  width: 0px;
+  background-color: $orange;
+  border-right: 5px solid rgba(#fff,0.5);
 }
 #controls{
   width: 350px;
   height: 35px;
-  background-color: $purple;
+  background-color: #fff;
   span{
+    padding-top: 9px;
     display: block;
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
+    color: $orange;
   }
   img{
     width: 30px;
@@ -116,8 +118,8 @@ body{
     cursor: pointer;
     background-color: $yellow;
     line-height: 8px;
-    padding-top: 8px;
-    @include box-shadow(inset $navy 0 0 0 1px);
+    padding-top: 9px;
+    @include box-shadow(inset #fff 0 0 0 1px);
     &:active{
       background-color: white;
     }
@@ -128,7 +130,7 @@ body{
     }
   }
   #help{
-    padding-top: 3px;
+    padding-top: 5px;
   }
 }
 #play-area{

@@ -9,6 +9,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
   <script src="javascript/jquery.pep.js"></script>
   <script src="javascript/drag.js"></script>
+  <script src="javascript/points.js"></script>
   <script>
   $(document).ready(function(){
     $(document.body).on("touchmove", function(event) {
@@ -30,12 +31,12 @@
         </ul>
         <div>
           <label>Total Score</label>
-          <span>239</span>
+          <span id="total-score">0</span>
         </div>
       </div>
     </div>
     <div id="level-meter">
-      <label>next level: 761</label>
+      <label id="exp-countdown">next level: 1000</label>
       <div id="experience"></div>
     </div>
     <ul id="controls">
