@@ -161,9 +161,7 @@ body {
 /* line 80, ../sass/screen.scss */
 #level-meter {
   height: 20px;
-  -webkit-box-shadow: 0 -2px 0 0 white;
-  -moz-box-shadow: 0 -2px 0 0 white;
-  box-shadow: 0 -2px 0 0 white;
+  border-top: #fff solid 1px;
 }
 /* line 83, ../sass/screen.scss */
 #level-meter label {

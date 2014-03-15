@@ -79,7 +79,7 @@ body{
 }
 #level-meter{
   height: 20px;
-  @include box-shadow(0 -2px 0 0 #fff);
+  border-top: #fff solid 1px;
   label{
     position: absolute;
     right: 0px;
