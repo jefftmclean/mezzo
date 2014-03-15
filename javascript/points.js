@@ -5,12 +5,11 @@ var level = {
   next: 30
 };
 
-var $expCountdown = $('#exp-countdown');
-
 function pointIncreaser(targetScore,duration){
 
   //tick through total points
   var $totalScore = $('#total-score');
+  var $expCountdown = $('#exp-countdown');
 
   var delay = duration / (targetScore - level.score);
 
