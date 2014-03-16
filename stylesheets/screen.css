@@ -325,41 +325,43 @@ body {
 }
 
 /* line 210, ../sass/screen.scss */
+.pep-active {
+  z-index: 10;
+}
+
+/* line 213, ../sass/screen.scss */
 .source {
   float: left;
   height: 40px;
   margin: 5px;
 }
 
-/* line 215, ../sass/screen.scss */
+/* line 218, ../sass/screen.scss */
 .half {
   width: 400px;
 }
-/* line 217, ../sass/screen.scss */
+/* line 220, ../sass/screen.scss */
 .half .pep {
-  color: #ffd64f;
-  border-top: 7px solid #ffd64f;
-  background-color: rgba(255, 214, 79, 0.25);
+  border-top: 7px solid #f7941e;
+  background-color: rgba(247, 148, 30, 0.3);
 }
 
-/* line 223, ../sass/screen.scss */
+/* line 225, ../sass/screen.scss */
 .fourth {
   width: 200px;
 }
-/* line 225, ../sass/screen.scss */
+/* line 227, ../sass/screen.scss */
 .fourth .pep {
-  color: #db6fbc;
-  border-top: 7px solid #db6fbc;
-  background-color: rgba(219, 111, 188, 0.25);
+  border-top: 7px solid #9aab75;
+  background-color: rgba(154, 171, 117, 0.3);
 }
 
-/* line 231, ../sass/screen.scss */
+/* line 232, ../sass/screen.scss */
 .eighth {
   width: 100px;
 }
-/* line 233, ../sass/screen.scss */
+/* line 234, ../sass/screen.scss */
 .eighth .pep {
-  color: #f7941e;
-  border-top: 7px solid #f7941e;
-  background-color: rgba(247, 148, 30, 0.25);
+  border-top: 7px solid #ffd64f;
+  background-color: rgba(255, 214, 79, 0.3);
 }

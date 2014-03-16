@@ -207,6 +207,9 @@ body{
     text-decoration: underline;
   }
 }
+.pep-active{
+  z-index: 10;
+}
 .source{
   float: left;
   height: 40px;
@@ -215,24 +218,21 @@ body{
 .half{
   width: 400px;
   .pep{
-    color: $yellow;
-    border-top: 7px solid $yellow;
-    background-color: rgba($yellow,0.25);
+    border-top: 7px solid $orange;
+    background-color: rgba($orange,0.3);
   }
 }
 .fourth{
   width: 200px;
   .pep{
-    color: $purple;
-    border-top: 7px solid $purple;
-    background-color: rgba($purple,0.25);
+    border-top: 7px solid $green;
+    background-color: rgba($green,0.3);
   }
 }
 .eighth{
   width: 100px;
   .pep{
-    color: $orange;
-    border-top: 7px solid $orange;
-    background-color: rgba($orange,0.25);
+    border-top: 7px solid $yellow;
+    background-color: rgba($yellow,0.3);
   }
 }
