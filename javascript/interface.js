@@ -40,8 +40,6 @@ function place(){
   $columns.each(function(){
     $this = $(this);
     $this.dx = Math.abs($this.offset().left - $pepActive.offset().left);
-    console.log(columnIndex);
-    console.log(parseInt($pepActive.attr("data-duration")));
     if($this.dx <= halfColumn && columnIndex + parseInt($pepActive.attr("data-duration")) <= $columns.length){
       snapX = $this;
       $pepActive.offset({left:snapX.offset().left});
