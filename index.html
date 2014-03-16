@@ -64,30 +64,29 @@ function place(){
   var columnFillStart = false;
   var columnFillCountdown;
   $columns.each(function(){
-    $this = $(this);
-    $this.dx = Math.abs($this.offset().left - $pepActive.offset().left);
-    //column coloring
-    if($this.dx < halfColumn){
-      columnFillCountdown = parseInt($pepActive.attr("data-duration"));
-      columnFillStart = true;
-    }
-    if(columnFillStart = true && columnFillCountdown > 0){
-      $this.css("background-color",$pepActive.css("background-color"));
-      columnFillCountdown -= 1;
-    }
+    $col = $(this);
+    $col.dx = Math.abs($col.offset().left - $pepActive.offset().left);    
     //snapping to grid
-    if($this.dx <= halfColumn && columnIndex + parseInt($pepActive.attr("data-duration")) <= $columns.length){
-      snapX = $this;
+    if($col.dx <= halfColumn && columnIndex + parseInt($pepActive.attr("data-duration")) <= $columns.length){
+      snapX = $col;
       $pepActive.offset({left:snapX.offset().left});
-      var $rows = $this.children('.row');
+      var $rows = $col.children('.row');
       $rows.each(function(){
-        $this = $(this);
-        $this.dy = Math.abs($this.offset().top - $pepActive.offset().top);
-        if($this.dy <= halfRow){
-          snapY = $this;
+        $row = $(this);
+        $row.dy = Math.abs($row.offset().top - $pepActive.offset().top);
+        if($row.dy <= halfRow){
+          snapY = $row;
           $pepActive.offset({top:snapY.offset().top});
+          columnFillStart = true;
+          columnFillCountdown = parseInt($pepActive.attr("data-duration"));
+          $col.css("border-left","1px solid rgba(255,255,255,0.15)");
         }
       });
+    }
+    //column coloring
+    if(columnFillStart = true && columnFillCountdown > 0){
+      $col.css("background-color",$pepActive.css("background-color"));
+      columnFillCountdown -= 1;
     }
     columnIndex += 1;
   });
@@ -184,6 +183,11 @@ function addPoints(increase){
     }, 1200);
   }
 }
+
+//testing the experience bar on mobile
+$('#check').click(function(){
+  addPoints(47);
+});
 
 });
 
