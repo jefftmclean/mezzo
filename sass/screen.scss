@@ -159,7 +159,7 @@ body{
   .whole{
     width: 800px;
   }
-  .grid{
+  #grid{
     height: 287px;
     border-bottom: 7px solid #fff;
     @include box-shadow(inset rgba(#fff,0.3) 0 0 1px 1px);
@@ -183,6 +183,9 @@ body{
     font-weight: 600;
   }
 }
+.active-column{
+  background-color: $bg;
+}
 #source-container{
   margin-top: 15px;
   width:800px;
@@ -190,11 +193,11 @@ body{
 }
 .pep{
   float: left;
-  height: 33px;
+  height: 40px;
   background-color: $bg;
-  font-size: 13px;
-  padding: 1px;
-  line-height: 12px;
+  font-size: 16px;
+  padding: 2px;
+  line-height: 14px;
   font-weight: 600;
   z-index: 5;
   text-align: right;
