@@ -14,14 +14,13 @@ function place(){
     if($this.dx <= halfColumn){
       snapX = $this;
       $pepActive.offset({left:snapX.offset().left});
+      $pepActive.toggleClass('no-bg');
       var $rows = $this.children('.row');
       $rows.each(function(){
         $this = $(this);
         $this.dy = Math.abs($this.offset().top - $pepActive.offset().top);
-        console.log($this.dy);
         if($this.dy <= halfRow){
           snapY = $this;
-          console.log(snapY);
           $pepActive.offset({top:snapY.offset().top});
         }
       });
@@ -30,7 +29,7 @@ function place(){
   if(snapX.dx >= halfColumn || snapY.dy >= halfRow){
     $pepActive.remove();
   } else {
-    // snapX.toggleClass('active-column');
+    snapX.toggleClass('active-column');
   }
 }
 

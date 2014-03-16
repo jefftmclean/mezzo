@@ -32,12 +32,14 @@ function growExpBar(targetScore,finalScore){
 
 function levelUp(){
   $('#level').animate(
-    {"font-size":"20px","padding-top":"7px"},
-    300, 
+    {"letter-spacing":"5px","opacity":"0"},
+    200, 
     function(){
-      $('#level').animate(
-        {"font-size":"16px","padding-top":"9px"},
-        300
+      var $this = $(this);
+      $this.html("Level " + level.current);
+      $this.animate(
+        {"letter-spacing":"0px","opacity":"1"},
+        200
       );
     }
   );
@@ -45,7 +47,6 @@ function levelUp(){
   level.base = level.next;
   level.next = Math.floor(level.next + level.next*0.18 + 30);
   $('#experience').width(0);
-  $('#level').html("Level " + level.current);
   updateCountdown();
 }
 

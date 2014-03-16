@@ -107,6 +107,7 @@ body{
   width: 350px;
   height: 35px;
   background-color: #fff;
+  color: $navy;
   span{
     padding-top: 9px;
     display: block;
@@ -114,7 +115,6 @@ body{
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
-    color: $navy;
   }
   img{
     width: 30px;
@@ -139,7 +139,6 @@ body{
     label{
       letter-spacing: 1px;
       font-size: 10px;
-      color: $navy;
     }
   }
   #help{
@@ -184,7 +183,10 @@ body{
   }
 }
 .active-column{
-  background-color: $bg;
+  background-color: rgba($orange,0.25);
+}
+#source-container .no-bg{
+  background: none;
 }
 #source-container{
   margin-top: 15px;
@@ -194,7 +196,6 @@ body{
 .pep{
   float: left;
   height: 40px;
-  background-color: $bg;
   font-size: 16px;
   padding: 2px;
   line-height: 14px;
@@ -216,6 +217,7 @@ body{
   .pep{
     color: $yellow;
     border-top: 7px solid $yellow;
+    background-color: rgba($yellow,0.25);
   }
 }
 .fourth{
@@ -223,6 +225,7 @@ body{
   .pep{
     color: $purple;
     border-top: 7px solid $purple;
+    background-color: rgba($purple,0.25);
   }
 }
 .eighth{
@@ -230,5 +233,6 @@ body{
   .pep{
     color: $orange;
     border-top: 7px solid $orange;
+    background-color: rgba($orange,0.25);
   }
 }
