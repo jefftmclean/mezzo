@@ -127,7 +127,7 @@ body{
     text-align: center;
     cursor: pointer;
     background-color: $yellow;
-    line-height: 9px;
+    line-height: 12px;
     padding-top: 9px;
     @include box-shadow(inset #fff 0 0 0 1px);
     &:hover{
@@ -138,7 +138,7 @@ body{
     }
     label{
       letter-spacing: 1px;
-      font-size: 10px;
+      font-size: 11px;
     }
   }
   #help{
