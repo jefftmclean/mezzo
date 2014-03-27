@@ -11,6 +11,15 @@
   <script src="javascript/jquery.pep.js"></script>
   <script>
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                              WEB AUDIO SETUP
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var melody = [];
+for(i=0;i<8;i++){
+  melody[i] = null;
+}
+
 $(document).ready(function(){
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -63,6 +72,7 @@ function place(){
   var rowIndex = 0;
   var columnFillStart = false;
   var columnFillCountdown;
+  var tone;
   $columns.each(function(i){
     $col = $(this);
     $col.dx = Math.abs($col.offset().left - $pepActive.offset().left);    
@@ -71,7 +81,7 @@ function place(){
       snapX = $col;
       $pepActive.offset({left:snapX.offset().left});
       var $rows = $col.children('.row');
-      $rows.each(function(){
+      $rows.each(function(j){
         $row = $(this);
         $row.dy = Math.abs($row.offset().top - $pepActive.offset().top);
         if($row.dy <= halfRow){
@@ -81,6 +91,7 @@ function place(){
           columnFillStart = true;
           columnFillCountdown = parseInt($pepActive.attr("data-duration"));
           $col.css("border-left","1px solid rgba(255,255,255,0.15)");
+          tone = j;
         }
       });
     }
@@ -89,9 +100,11 @@ function place(){
       $col.attr("data-switch","on");
       $col.css("background-color",$pepActive.css("background-color"));
       columnFillCountdown -= 1;
+      melody[i] = tone;
     }
   });
   if(snapX.dx >= halfColumn || snapY.dy >= halfRow){
+    pickup();
     $pepActive.remove();
   } else {
     $pepActive.toggleClass("no-bg");
@@ -101,15 +114,15 @@ function place(){
 function pickup(){
   var $pepActive = $('.pep-active');
   $pepActive.removeClass('no-bg');
-  console.log($pepActive.attr("data-col"));
   var col = $pepActive.attr("data-col");
   if (col){
     col = parseInt(col);
-    var duration = $pepActive.attr("data-duration");
+    var duration = parseInt($pepActive.attr("data-duration"));
     for (i=0;i<duration;i++){
       $columns[col+i].style.background = "none";
       $columns[col+i].style.border = "none";
       $columns[col+i].setAttribute("data-switch","off");
+      melody[col+i] = null;
     }
   }
 };
