@@ -26,11 +26,11 @@ $(document.body).on("touchmove", function(event) {
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var $columns = $('#grid .column');
-var $row = $('#grid .row');
+var $rows = $('#grid .row');
 var snapX = {};
 var snapY = {};
 var halfColumn = $columns.width()/2;
-var halfRow = $row.height()/2;
+var halfRow = $rows.height()/2;
 var $half = $('#source-container .source .half').clone();
 var $fourth = $('#source-container .source .fourth').clone();
 var $eighth = $('#source-container .source .eighth').clone();
@@ -60,14 +60,14 @@ function place(){
   //grid interaction
   snapX.dx = halfColumn;
   snapY.dy = halfRow;
-  var columnIndex = 0;
+  var rowIndex = 0;
   var columnFillStart = false;
   var columnFillCountdown;
-  $columns.each(function(){
+  $columns.each(function(i){
     $col = $(this);
     $col.dx = Math.abs($col.offset().left - $pepActive.offset().left);    
     //snapping to grid
-    if($col.dx <= halfColumn && columnIndex + parseInt($pepActive.attr("data-duration")) <= $columns.length){
+    if($col.dx <= halfColumn && $col.attr("data-switch") != "on" && i + parseInt($pepActive.attr("data-duration")) <= $columns.length){
       snapX = $col;
       $pepActive.offset({left:snapX.offset().left});
       var $rows = $col.children('.row');
@@ -77,6 +77,7 @@ function place(){
         if($row.dy <= halfRow){
           snapY = $row;
           $pepActive.offset({top:snapY.offset().top});
+          $pepActive.attr("data-col",i);
           columnFillStart = true;
           columnFillCountdown = parseInt($pepActive.attr("data-duration"));
           $col.css("border-left","1px solid rgba(255,255,255,0.15)");
@@ -85,10 +86,10 @@ function place(){
     }
     //column coloring
     if(columnFillStart = true && columnFillCountdown > 0){
+      $col.attr("data-switch","on");
       $col.css("background-color",$pepActive.css("background-color"));
       columnFillCountdown -= 1;
     }
-    columnIndex += 1;
   });
   if(snapX.dx >= halfColumn || snapY.dy >= halfRow){
     $pepActive.remove();
@@ -100,6 +101,17 @@ function place(){
 function pickup(){
   var $pepActive = $('.pep-active');
   $pepActive.removeClass('no-bg');
+  console.log($pepActive.attr("data-col"));
+  var col = $pepActive.attr("data-col");
+  if (col){
+    col = parseInt(col);
+    var duration = $pepActive.attr("data-duration");
+    for (i=0;i<duration;i++){
+      $columns[col+i].style.background = "none";
+      $columns[col+i].style.border = "none";
+      $columns[col+i].setAttribute("data-switch","off");
+    }
+  }
 };
 
 function initializePep(){
