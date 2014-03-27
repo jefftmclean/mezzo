@@ -160,21 +160,17 @@ body {
   cursor: pointer;
 }
 /* line 80, ../sass/screen.scss */
-#scoring li:hover {
-  background-color: #ffd64f;
-}
-/* line 83, ../sass/screen.scss */
 #scoring li:active {
   background-color: white;
 }
 
-/* line 88, ../sass/screen.scss */
+/* line 85, ../sass/screen.scss */
 #level-meter {
   height: 20px;
   border-top: #fff solid 1px;
   position: relative;
 }
-/* line 92, ../sass/screen.scss */
+/* line 89, ../sass/screen.scss */
 #level-meter label {
   position: absolute;
   right: 0px;
@@ -183,7 +179,7 @@ body {
   color: white;
 }
 
-/* line 100, ../sass/screen.scss */
+/* line 97, ../sass/screen.scss */
 #experience {
   height: 100%;
   width: 0px;
@@ -191,14 +187,14 @@ body {
   border-right: 5px solid rgba(255, 255, 255, 0.6);
 }
 
-/* line 106, ../sass/screen.scss */
+/* line 103, ../sass/screen.scss */
 #controls {
   width: 350px;
   height: 35px;
   background-color: #fff;
   color: #223e52;
 }
-/* line 111, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 #controls span {
   padding-top: 9px;
   display: block;
@@ -207,12 +203,12 @@ body {
   text-align: center;
   text-transform: uppercase;
 }
-/* line 119, ../sass/screen.scss */
+/* line 116, ../sass/screen.scss */
 #controls img {
   width: 30px;
   margin-left: 5px;
 }
-/* line 123, ../sass/screen.scss */
+/* line 120, ../sass/screen.scss */
 #controls li {
   height: 60px;
   width: 60px;
@@ -226,25 +222,21 @@ body {
   -moz-box-shadow: inset white 0 0 0 1px;
   box-shadow: inset white 0 0 0 1px;
 }
-/* line 133, ../sass/screen.scss */
-#controls li:hover {
-  background-color: #d6cc70;
-}
-/* line 136, ../sass/screen.scss */
+/* line 130, ../sass/screen.scss */
 #controls li:active {
   background-color: white;
 }
-/* line 139, ../sass/screen.scss */
+/* line 133, ../sass/screen.scss */
 #controls li label {
   letter-spacing: 1px;
   font-size: 11px;
 }
-/* line 144, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 #controls #help {
   padding-top: 3px;
 }
 
-/* line 148, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 #play-area {
   float: left;
   width: 100%;
@@ -255,11 +247,11 @@ body {
   overflow: auto;
 }
 
-/* line 158, ../sass/screen.scss */
+/* line 152, ../sass/screen.scss */
 #composer .whole {
   width: 800px;
 }
-/* line 161, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 #composer #grid {
   height: 287px;
   border-bottom: 7px solid #fff;
@@ -267,16 +259,16 @@ body {
   -moz-box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
   box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
 }
-/* line 166, ../sass/screen.scss */
+/* line 160, ../sass/screen.scss */
 #composer .column {
   width: 12.5%;
   float: left;
 }
-/* line 170, ../sass/screen.scss */
+/* line 164, ../sass/screen.scss */
 #composer .row {
   height: 40px;
 }
-/* line 173, ../sass/screen.scss */
+/* line 167, ../sass/screen.scss */
 #composer .clear {
   font-size: 16px;
   font-weight: 400;
@@ -285,29 +277,29 @@ body {
   padding: 7px;
   cursor: pointer;
 }
-/* line 181, ../sass/screen.scss */
+/* line 175, ../sass/screen.scss */
 #composer .num {
   font-weight: 600;
 }
 
-/* line 185, ../sass/screen.scss */
+/* line 179, ../sass/screen.scss */
 .active-column {
   background-color: rgba(247, 148, 30, 0.25);
 }
 
-/* line 188, ../sass/screen.scss */
+/* line 182, ../sass/screen.scss */
 #source-container .no-bg {
   background: none;
 }
 
-/* line 191, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 #source-container {
   margin-top: 15px;
   width: 800px;
   z-index: 5;
 }
 
-/* line 196, ../sass/screen.scss */
+/* line 190, ../sass/screen.scss */
 .pep {
   float: left;
   height: 40px;
@@ -319,48 +311,48 @@ body {
   text-align: right;
   cursor: move;
 }
-/* line 206, ../sass/screen.scss */
+/* line 200, ../sass/screen.scss */
 .pep .numerator {
   text-decoration: underline;
 }
 
-/* line 210, ../sass/screen.scss */
+/* line 204, ../sass/screen.scss */
 .pep-active {
   z-index: 10;
 }
 
-/* line 213, ../sass/screen.scss */
+/* line 207, ../sass/screen.scss */
 .source {
   float: left;
   height: 40px;
   margin: 5px;
 }
 
-/* line 218, ../sass/screen.scss */
+/* line 212, ../sass/screen.scss */
 .half {
   width: 400px;
 }
-/* line 220, ../sass/screen.scss */
+/* line 214, ../sass/screen.scss */
 .half .pep {
   border-top: 7px solid #f7941e;
   background-color: rgba(247, 148, 30, 0.3);
 }
 
-/* line 225, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 .fourth {
   width: 200px;
 }
-/* line 227, ../sass/screen.scss */
+/* line 221, ../sass/screen.scss */
 .fourth .pep {
   border-top: 7px solid #9aab75;
   background-color: rgba(154, 171, 117, 0.3);
 }
 
-/* line 232, ../sass/screen.scss */
+/* line 226, ../sass/screen.scss */
 .eighth {
   width: 100px;
 }
-/* line 234, ../sass/screen.scss */
+/* line 228, ../sass/screen.scss */
 .eighth .pep {
   border-top: 7px solid #ffd64f;
   background-color: rgba(255, 214, 79, 0.3);

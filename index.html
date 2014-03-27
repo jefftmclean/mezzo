@@ -148,11 +148,12 @@ var level = {
   next: 30
 };
 
-var duration = 1000;
+var duration = 100;
 
 function updateCountdown(){
   $('#exp-countdown').html(level.next - level.score + " to level " + (level.current + 1));
 }
+updateCountdown();
 
 function scoreTicker(targetScore){
   var $totalScore = $('#total-score');
@@ -205,13 +206,13 @@ function addPoints(increase){
     setTimeout(function(){
       levelUp();
       addPoints(increase);
-    }, 1200);
+    }, 150);
   }
 }
 
 //testing the experience bar on mobile
 $('#check').click(function(){
-  addPoints(47);
+  addPoints(4);
 });
 
 });
@@ -238,7 +239,7 @@ $('#check').click(function(){
       </div>
     </div>
     <div id="level-meter">
-      <label id="exp-countdown">next level: 1000</label>
+      <label id="exp-countdown"></label>
       <div id="experience"></div>
     </div>
     <ul id="controls">

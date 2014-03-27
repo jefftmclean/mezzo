@@ -77,9 +77,6 @@ body{
     background-color: $pale;
     color: $navy;
     cursor: pointer;
-    &:hover{
-      background-color: $yellow;
-    }
     &:active{
       background-color: white;
     }
@@ -130,9 +127,6 @@ body{
     line-height: 12px;
     padding-top: 9px;
     @include box-shadow(inset #fff 0 0 0 1px);
-    &:hover{
-      background-color: $pale;
-    }
     &:active{
       background-color: white;
     }
