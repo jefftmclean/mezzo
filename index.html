@@ -44,6 +44,8 @@ var $half = $('#source-container .source .half').clone();
 var $fourth = $('#source-container .source .fourth').clone();
 var $eighth = $('#source-container .source .eighth').clone();
 
+var samePiece = false;
+
 function place(){
   var $pepActive = $('.pep-active');
   var duration = parseInt($pepActive.attr("data-duration"));
@@ -95,8 +97,7 @@ function place(){
   var col;
   if($pepActive.attr("data-col")){
     col = parseInt($pepActive.attr("data-col"));
-    colMatch = parseInt($columns[col].getAttribute("data-col"));
-    if(col != colMatch){
+    if(samePiece != true){
       for(i=col;i<col+duration;i++){
         if($columns[i].getAttribute("data-switch") === "on" ){
           $pepActive.remove();
@@ -119,7 +120,7 @@ function place(){
     $pepActive.toggleClass("no-bg");
     $pepActive.offset({left:snapX.offset().left,top:snapY.offset().top});
   }
-  console.log(melody);
+  samePiece = true;
 }
 
 function pickup(){
@@ -136,6 +137,7 @@ function pickup(){
       melody[i] = null;
     }
   }
+  samePiece = false;
 };
 
 function initializePep(){
