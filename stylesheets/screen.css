@@ -258,22 +258,23 @@ body {
 }
 /* line 159, ../sass/screen.scss */
 #composer #grid {
+  position: relative;
   height: 287px;
   border-bottom: 7px solid #fff;
   -webkit-box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
   -moz-box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
   box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
 }
-/* line 164, ../sass/screen.scss */
+/* line 165, ../sass/screen.scss */
 #composer .column {
   width: 12.5%;
   float: left;
 }
-/* line 168, ../sass/screen.scss */
+/* line 169, ../sass/screen.scss */
 #composer .row {
   height: 40px;
 }
-/* line 171, ../sass/screen.scss */
+/* line 172, ../sass/screen.scss */
 #composer .clear {
   font-size: 16px;
   font-weight: 400;
@@ -282,29 +283,40 @@ body {
   padding: 7px;
   cursor: pointer;
 }
-/* line 179, ../sass/screen.scss */
+/* line 180, ../sass/screen.scss */
 #composer .num {
   font-weight: 600;
 }
 
-/* line 183, ../sass/screen.scss */
+/* line 184, ../sass/screen.scss */
+#playback-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+}
+
+/* line 193, ../sass/screen.scss */
 .active-column {
   background-color: rgba(247, 148, 30, 0.25);
 }
 
-/* line 186, ../sass/screen.scss */
+/* line 196, ../sass/screen.scss */
 #source-container .no-bg {
   background: none;
 }
 
-/* line 189, ../sass/screen.scss */
+/* line 199, ../sass/screen.scss */
 #source-container {
   margin-top: 15px;
   width: 800px;
   z-index: 5;
 }
 
-/* line 194, ../sass/screen.scss */
+/* line 204, ../sass/screen.scss */
 .pep {
   float: left;
   height: 40px;
@@ -316,48 +328,48 @@ body {
   text-align: right;
   cursor: move;
 }
-/* line 204, ../sass/screen.scss */
+/* line 214, ../sass/screen.scss */
 .pep .numerator {
   text-decoration: underline;
 }
 
-/* line 208, ../sass/screen.scss */
+/* line 218, ../sass/screen.scss */
 .pep-active {
   z-index: 10;
 }
 
-/* line 211, ../sass/screen.scss */
+/* line 221, ../sass/screen.scss */
 .source {
   float: left;
   height: 40px;
   margin: 5px;
 }
 
-/* line 216, ../sass/screen.scss */
+/* line 226, ../sass/screen.scss */
 .half {
   width: 400px;
 }
-/* line 218, ../sass/screen.scss */
+/* line 228, ../sass/screen.scss */
 .half .pep {
   border-top: 7px solid #f7941e;
   background-color: rgba(247, 148, 30, 0.3);
 }
 
-/* line 223, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 .fourth {
   width: 200px;
 }
-/* line 225, ../sass/screen.scss */
+/* line 235, ../sass/screen.scss */
 .fourth .pep {
   border-top: 7px solid #9aab75;
   background-color: rgba(154, 171, 117, 0.3);
 }
 
-/* line 230, ../sass/screen.scss */
+/* line 240, ../sass/screen.scss */
 .eighth {
   width: 100px;
 }
-/* line 232, ../sass/screen.scss */
+/* line 242, ../sass/screen.scss */
 .eighth .pep {
   border-top: 7px solid #ffd64f;
   background-color: rgba(255, 214, 79, 0.3);

@@ -231,8 +231,10 @@ function startDecay(tone){
 //                                               AUDIO PLAYBACK
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+var barLength;
 var beat = 0;
 var activeNote;
+var firstLoop = true;
 function playback(){
   activeNote = melody[beat];
   for(i=0;i<gains.length;i++){
@@ -245,8 +247,11 @@ function playback(){
     }
   }
   if (beat === 8){
-    beat = 0;
     stop();
+    if(firstLoop === true){
+      play(300);
+    }
+    firstLoop = false;
   } else {
     beat += 1;
   }
@@ -255,26 +260,33 @@ function playback(){
 var interval;
 var isPlaying = false;
 play = function(beatLength){
+  isPlaying = true;
+  barLength = beatLength*8;
+  playback();
   interval = setInterval(playback, beatLength);
+  $('#grid').prepend("<div id='playback-bar'></div>");
+  $('#playback-bar').animate({left: $('#grid').width()},barLength,"linear");
+  $('#play').css("background-color","white");
 }
 stop = function(){
+  beat = 0;
+  $('#playback-bar').remove();
   clearInterval(interval);
   for(i=0;i<8;i++){
     gains[i].gain.value = 0;
   }
   isPlaying = false;
   $('#play').css("background-color","#ffd64f");
+  firstLoop = true;
 }
 $('#play').click(function(){
   if (isPlaying === false){
     play(300);
-    isPlaying = true;
-    $('#play').css("background-color","white");
   } else {
     stop();
     isPlaying = false;
-    $('#play').css("background-color","#ffd64f");
   }
+  firstLoop = true;
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -157,6 +157,7 @@ body{
     width: 800px;
   }
   #grid{
+    position: relative;
     height: 287px;
     border-bottom: 7px solid #fff;
     @include box-shadow(inset rgba(#fff,0.3) 0 0 1px 1px);
@@ -179,6 +180,15 @@ body{
   .num{
     font-weight: 600;
   }
+}
+#playback-bar{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: rgba(#fff,0.5);
+  z-index: 10;
 }
 .active-column{
   background-color: rgba($orange,0.25);
