@@ -9,16 +9,18 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
   <script src="javascript/jquery.pep.js"></script>
+  <script src="javascript/tones.js"></script>
   <script>
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                              WEB AUDIO SETUP
+//                                                 MELODY SETUP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var melody = [];
 for(i=0;i<8;i++){
   melody[i] = null;
 }
+
 
 $(document).ready(function(){
 
@@ -151,6 +153,131 @@ function initializePep(){
 initializePep();
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                               BOARD CLEARING
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+$('#clear').click(function(){
+  $columns.css({
+    "background":"none",
+    "border":"none"
+  });
+  $columns.attr("data-switch","off");
+  for(i=0;i<8;i++){
+    melody[i] = null;
+  }
+  $(".pep").remove();
+  $("#source-container>.half").prepend($half.clone());
+  $("#source-container>.fourth").prepend($fourth.clone());
+  $("#source-container>.eighth").prepend($eighth.clone());
+  initializePep();
+});
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                              WEB AUDIO SETUP
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var context;
+if (! window.AudioContext){
+  context = new webkitAudioContext();
+} else {
+  context = new AudioContext();
+}
+var gains = [];
+var envelopes = [];
+var oscillators = [];
+
+var tones = [B4,A4,G4,E4,D4,B3,A3,G3];
+
+generateSynth = function(){
+  for(i=0;i<8;i++){
+    gains.push(context.createGain());
+    envelopes.push(context.createGain());
+    oscillators.push(context.createOscillator());
+
+    gains[i].gain.value = 0;
+    envelopes[i].gain.value = 0;
+    oscillators[i].frequency.value = tones[i];
+    oscillators[i].type = "sine";
+    oscillators[i].start(0);
+
+    gains[i].connect(context.destination);
+    envelopes[i].connect(gains[i]);
+    oscillators[i].connect(envelopes[i]);
+  }
+}
+generateSynth();
+
+//fancy sound modeling
+function startAttack(tone){
+  var now = context.currentTime;
+  envelopes[tone].gain.setTargetAtTime(1.0, now, .08);
+};
+
+function startDecay(tone){
+  var now = context.currentTime;
+  envelopes[tone].gain.setTargetAtTime(0.0, now, .08);
+};
+
+//HACK FOR AUDIO API ON MOBILE
+      window.addEventListener('touchstart', function() {
+        var buffer = context.createBuffer(1, 1, 22050);
+        var source = context.createBufferSource();
+        source.buffer = buffer;
+        source.connect(context.destination);
+        source.start(0);
+      }, false);
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                               AUDIO PLAYBACK
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var beat = 0;
+var activeNote;
+function playback(){
+  activeNote = melody[beat];
+  for(i=0;i<gains.length;i++){
+    if(i === activeNote){
+      gains[melody[beat]].gain.value = 1;
+      startAttack(melody[beat]);
+    } else {
+      gains[i].gain.value = 0;
+      startDecay(i);
+    }
+  }
+  if (beat === 8){
+    beat = 0;
+    stop();
+  } else {
+    beat += 1;
+  }
+}
+
+var interval;
+var isPlaying = false;
+play = function(beatLength){
+  interval = setInterval(playback, beatLength);
+}
+stop = function(){
+  clearInterval(interval);
+  for(i=0;i<8;i++){
+    gains[i].gain.value = 0;
+  }
+  isPlaying = false;
+  $('#play').css("background-color","#ffd64f");
+}
+$('#play').click(function(){
+  if (isPlaying === false){
+    play(300);
+    isPlaying = true;
+    $('#play').css("background-color","white");
+  } else {
+    stop();
+    isPlaying = false;
+    $('#play').css("background-color","#ffd64f");
+  }
+});
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                       POINTS
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -161,7 +288,7 @@ var level = {
   next: 30
 };
 
-var duration = 100;
+var expDuration = 400;
 
 function updateCountdown(){
   $('#exp-countdown').html(level.next - level.score + " to level " + (level.current + 1));
@@ -170,7 +297,7 @@ updateCountdown();
 
 function scoreTicker(targetScore){
   var $totalScore = $('#total-score');
-  var delay = duration / (targetScore - level.score);
+  var delay = expDuration / (targetScore - level.score);
   setTimeout(function pointLoop(){
     updateCountdown();
     $totalScore.html(level.score);
@@ -184,19 +311,19 @@ function scoreTicker(targetScore){
 function growExpBar(targetScore,finalScore){
   $('#experience').animate({
     width: 100 * (targetScore - level.base) / (level.next - level.base) + "%"
-  }, duration);
+  }, expDuration);
 }
 
 function levelUp(){
   $('#level').animate(
     {"letter-spacing":"5px","opacity":"0"},
-    200, 
+    expDuration+100, 
     function(){
       var $this = $(this);
       $this.html("Level " + level.current);
       $this.animate(
         {"letter-spacing":"0px","opacity":"1"},
-        200
+        expDuration+100
       );
     }
   );
@@ -219,13 +346,13 @@ function addPoints(increase){
     setTimeout(function(){
       levelUp();
       addPoints(increase);
-    }, 150);
+    }, expDuration+50);
   }
 }
 
 //testing the experience bar on mobile
 $('#check').click(function(){
-  addPoints(4);
+  addPoints(22);
 });
 
 });
@@ -352,7 +479,7 @@ $('#check').click(function(){
             <div class="row"></div>
           </div>
         </div>
-        <div class="clear">Clear Board</div>
+        <div class="clear" id="clear">Clear Board</div>
         <span class="num">1<span>
       </div>
     </div>

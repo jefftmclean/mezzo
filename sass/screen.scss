@@ -15,6 +15,10 @@ $purple: #db6fbc;
 
 $bg: rgba(white, 0.1);
 
+.white-bg{
+  background-color: white;
+}
+
 *{
   @include box-sizing(border-box);
 }
