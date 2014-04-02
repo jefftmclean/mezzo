@@ -46,6 +46,7 @@ var $eighth = $('#source-container .source .eighth').clone();
 
 function place(){
   var $pepActive = $('.pep-active');
+  var duration = parseInt($pepActive.attr("data-duration"));
   //generate replacement block
   if( $pepActive.attr("data-origin") === "true" ){
     switch($pepActive.attr("data-duration")){
@@ -70,45 +71,55 @@ function place(){
   snapX.dx = halfColumn;
   snapY.dy = halfRow;
   var rowIndex = 0;
-  var columnFillStart = false;
-  var columnFillCountdown;
   var tone;
+  var overlap = false;
   $columns.each(function(i){
     $col = $(this);
     $col.dx = Math.abs($col.offset().left - $pepActive.offset().left);    
-    //snapping to grid
-    if($col.dx <= halfColumn && $col.attr("data-switch") != "on" && i + parseInt($pepActive.attr("data-duration")) <= $columns.length){
+    //finding grid match
+    if($col.dx <= halfColumn && $col.attr("data-switch") != "on" && i + duration <= $columns.length){
       snapX = $col;
-      $pepActive.offset({left:snapX.offset().left});
       var $rows = $col.children('.row');
       $rows.each(function(j){
         $row = $(this);
         $row.dy = Math.abs($row.offset().top - $pepActive.offset().top);
         if($row.dy <= halfRow){
           snapY = $row;
-          $pepActive.offset({top:snapY.offset().top});
           $pepActive.attr("data-col",i);
-          columnFillStart = true;
-          columnFillCountdown = parseInt($pepActive.attr("data-duration"));
-          $col.css("border-left","1px solid rgba(255,255,255,0.15)");
           tone = j;
         }
       });
     }
-    //column coloring
-    if(columnFillStart = true && columnFillCountdown > 0){
-      $col.attr("data-switch","on");
-      $col.css("background-color",$pepActive.css("background-color"));
-      columnFillCountdown -= 1;
-      melody[i] = tone;
-    }
   });
-  if(snapX.dx >= halfColumn || snapY.dy >= halfRow){
+  //make sure piece won't overlap with another
+  var col;
+  if($pepActive.attr("data-col")){
+    col = parseInt($pepActive.attr("data-col"));
+    colMatch = parseInt($columns[col].getAttribute("data-col"));
+    if(col != colMatch){
+      for(i=col;i<col+duration;i++){
+        if($columns[i].getAttribute("data-switch") === "on" ){
+          $pepActive.remove();
+          return;
+        }
+      }
+    }
+  }
+  // if everything's fine, snap to grid and activate grid & music
+  if(snapX.dx >= halfColumn || snapY.dy >= halfRow || overlap === true){
     pickup();
     $pepActive.remove();
   } else {
+    $columns[col].style.borderLeft = "1px solid rgba(255,255,255,0.15)";
+    for(i=col;i<col+duration;i++){
+      $columns[i].setAttribute("data-switch","on");
+      $columns[i].style.backgroundColor = $pepActive.css("background-color");
+      melody[i] = tone;
+    }
     $pepActive.toggleClass("no-bg");
+    $pepActive.offset({left:snapX.offset().left,top:snapY.offset().top});
   }
+  console.log(melody);
 }
 
 function pickup(){
@@ -118,11 +129,11 @@ function pickup(){
   if (col){
     col = parseInt(col);
     var duration = parseInt($pepActive.attr("data-duration"));
-    for (i=0;i<duration;i++){
-      $columns[col+i].style.background = "none";
-      $columns[col+i].style.border = "none";
-      $columns[col+i].setAttribute("data-switch","off");
-      melody[col+i] = null;
+    for (i=col;i<col+duration;i++){
+      $columns[i].style.background = "none";
+      $columns[i].style.border = "none";
+      $columns[i].setAttribute("data-switch","off");
+      melody[i] = null;
     }
   }
 };
@@ -266,7 +277,7 @@ $('#check').click(function(){
     <div id="composer">
       <div class="whole">
         <div id="grid">
-          <div class="column">
+          <div class="column" data-col="0">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -275,7 +286,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="1">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -284,7 +295,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="2">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -293,7 +304,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="3">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -302,7 +313,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="4">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -311,7 +322,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="5">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -320,7 +331,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="6">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
@@ -329,7 +340,7 @@ $('#check').click(function(){
             <div class="row"></div>
             <div class="row"></div>
           </div>
-          <div class="column">
+          <div class="column" data-col="7">
             <div class="row"></div>
             <div class="row"></div>
             <div class="row"></div>
