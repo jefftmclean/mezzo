@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
   <title>Mezzo</title>
   <link rel="stylesheet" href="stylesheets/screen.css">
   <script type="text/javascript" src="//use.typekit.net/ooz6urs.js"></script>
@@ -21,16 +23,7 @@ for(i=0;i<8;i++){
   testMelody[i] = null;
 }
 
-
 $(document).ready(function(){
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                              WEB APP STYLING
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-$(document.body).on("touchmove", function(event) {
-  event.preventDefault();
-});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                DRAG-AND-DROP
