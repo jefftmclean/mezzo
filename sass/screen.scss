@@ -151,6 +151,14 @@ body{
   padding: 30px 0 0 50px;
   text-align: right;
   overflow: auto;
+  -webkit-transition: opacity .2s;
+  -moz-transition: opacity .2s;
+  -ms-transition: opacity .2s;
+  -o-transition: opacity .2s;
+  transition: opacity .2s;
+}
+.inactive{
+  opacity: 0.2;
 }
 #composer{
   .whole{

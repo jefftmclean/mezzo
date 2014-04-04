@@ -268,7 +268,7 @@ function play(melody, beatLength, button){
   }
   if(button === "listen"){
     $('#listen').css("background-color","#fff");
-    $('#play-area').css("opacity",".2");
+    $('#play-area').addClass("inactive");
   }
 }
 
@@ -281,7 +281,7 @@ function stop(){
   }
   isPlaying = false;
   $('#controls li').css("background-color","#ffd64f");
-  $('#play-area').css("opacity","1");
+  $('#play-area').removeClass("inactive");
 }
 $('#play').click(function(){
   if (isPlaying === false){
