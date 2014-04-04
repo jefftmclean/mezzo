@@ -28,6 +28,10 @@ html{
   width: 100%;
   height: 100%;
   min-width: 900px;
+  overflow: hidden;
+}
+::-webkit-scrollbar { 
+    display: none; 
 }
 label{
   text-transform: uppercase;
@@ -35,6 +39,7 @@ label{
   letter-spacing: 2px;
 }
 body{
+  overflow: auto;
   width: 100%;
   height: 100%;
   background: $navy; /* Old browsers */
