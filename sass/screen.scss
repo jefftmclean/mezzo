@@ -87,11 +87,12 @@ body{
   }
 }
 #level-meter{
+  width: 100%;
   height: 20px;
   border-top: #fff solid 1px;
   position: relative;
   label{
-
+    width: 300px;
     float: right;
     padding: 4px;
     text-align: right;
