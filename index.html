@@ -16,9 +16,9 @@
 //                                                 MELODY SETUP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-var melody = [];
+var testMelody = [];
 for(i=0;i<8;i++){
-  melody[i] = null;
+  testMelody[i] = null;
 }
 
 
@@ -117,7 +117,7 @@ function place(){
     for(i=col;i<col+duration;i++){
       $columns[i].setAttribute("data-switch","on");
       $columns[i].style.backgroundColor = $pepActive.css("background-color");
-      melody[i] = tone;
+      testMelody[i] = tone;
     }
     $pepActive.toggleClass("no-bg");
     $pepActive.offset({left:snapX.offset().left,top:snapY.offset().top});
@@ -136,7 +136,7 @@ function pickup(){
       $columns[i].style.background = "none";
       $columns[i].style.border = "none";
       $columns[i].setAttribute("data-switch","off");
-      melody[i] = null;
+      testMelody[i] = null;
     }
   }
   samePiece = false;
@@ -163,7 +163,7 @@ $('#clear').click(function(){
   });
   $columns.attr("data-switch","off");
   for(i=0;i<8;i++){
-    melody[i] = null;
+    testMelody[i] = null;
   }
   $(".pep").remove();
   $("#source-container>.half").prepend($half.clone());
@@ -186,7 +186,7 @@ var gains = [];
 var envelopes = [];
 var oscillators = [];
 
-var tones = [B4,A4,G4,E4,D4,B3,A3,G3];
+var tones = [A4,G4,E4,D4,B3,A3,G3];
 
 generateSynth = function(){
   for(i=0;i<8;i++){
@@ -231,11 +231,9 @@ function startDecay(tone){
 //                                               AUDIO PLAYBACK
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-var barLength;
 var beat = 0;
 var activeNote;
-var firstLoop = true;
-function playback(){
+function playback(melody, beatLength, button){
   activeNote = melody[beat];
   for(i=0;i<gains.length;i++){
     if(i === activeNote){
@@ -246,12 +244,10 @@ function playback(){
       startDecay(i);
     }
   }
-  if (beat === 8){
+  if (beat > 7){$('#playback-bar').remove()};
+  if (beat > 9){
     stop();
-    if(firstLoop === true){
-      play(300);
-    }
-    firstLoop = false;
+    play(melody, beatLength, button);
   } else {
     beat += 1;
   }
@@ -259,16 +255,22 @@ function playback(){
 
 var interval;
 var isPlaying = false;
-play = function(beatLength){
+function play(melody, beatLength, button){
   isPlaying = true;
-  barLength = beatLength*8;
-  playback();
-  interval = setInterval(playback, beatLength);
-  $('#grid').prepend("<div id='playback-bar'></div>");
-  $('#playback-bar').animate({left: $('#grid').width()},barLength,"linear");
-  $('#play').css("background-color","white");
+  playback(melody);
+  interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
+  if(button === "test"){
+    $('#grid').prepend("<div id='playback-bar'></div>");
+    var measureLength = beatLength*8;
+    $('#playback-bar').animate({left: $('#grid').width()},measureLength,"linear");
+    $('#play').css("background-color","white");
+  }
+  if(button === "listen"){
+    $('#listen').css("background-color","#fff");
+  }
 }
-stop = function(){
+
+function stop(){
   beat = 0;
   $('#playback-bar').remove();
   clearInterval(interval);
@@ -276,17 +278,37 @@ stop = function(){
     gains[i].gain.value = 0;
   }
   isPlaying = false;
-  $('#play').css("background-color","#ffd64f");
-  firstLoop = true;
+  $('#controls li').css("background-color","#ffd64f");
 }
 $('#play').click(function(){
   if (isPlaying === false){
-    play(300);
+    play(testMelody, 300, "test");
   } else {
     stop();
     isPlaying = false;
   }
-  firstLoop = true;
+});
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                            GOAL MELODY SETUP
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var goalMelody = [];
+var note = Math.floor(Math.random() * 7);
+for(i=0;i<8;i++){
+  if(Math.random() > .5){
+    note = Math.floor(Math.random() * 7);
+  }
+  goalMelody[i] = note;
+  
+}
+$('#listen').click(function(){
+  if (isPlaying === false){
+    play(goalMelody, 300, "listen");
+  } else {
+    stop();
+    isPlaying = false;
+  }
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -401,7 +423,7 @@ $('#check').click(function(){
       </li>
       <li id="play">
         <img src="assets/try.svg">
-        <br><label>try</label>
+        <br><label>test</label>
       </li>
       <li id="listen">
         <img src="assets/listen.svg">
