@@ -173,7 +173,7 @@ $('#clear').click(function(){
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                              WEB AUDIO SETUP
+//                                                    WEB AUDIO
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var context;
@@ -228,7 +228,7 @@ function startDecay(tone){
       }, false);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                               AUDIO PLAYBACK
+//                                         AUDIO PLAYBACK SETUP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var beat = 0;
@@ -251,13 +251,14 @@ function playback(melody, beatLength, button){
   } else {
     beat += 1;
   }
+  console.log("a;lskdjf");
 }
 
 var interval;
 var isPlaying = false;
 function play(melody, beatLength, button){
   isPlaying = true;
-  playback(melody);
+  playback(melody, beatLength, button);
   interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
   if(button === "test"){
     $('#grid').prepend("<div id='playback-bar'></div>");
@@ -267,6 +268,7 @@ function play(melody, beatLength, button){
   }
   if(button === "listen"){
     $('#listen').css("background-color","#fff");
+    $('#play-area').css("opacity",".2");
   }
 }
 
@@ -279,6 +281,7 @@ function stop(){
   }
   isPlaying = false;
   $('#controls li').css("background-color","#ffd64f");
+  $('#play-area').css("opacity","1");
 }
 $('#play').click(function(){
   if (isPlaying === false){
@@ -312,7 +315,7 @@ $('#listen').click(function(){
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                                       POINTS
+//                                                  POINT SETUP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var level = {
@@ -384,10 +387,59 @@ function addPoints(increase){
   }
 }
 
-//testing the experience bar on mobile
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                          GRADING AND SCORING
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var buzzer;
+var buzzerOscillators = [];
+var buzzerGains = [];
+if (! window.AudioContext){
+  buzzer = new webkitAudioContext();
+} else {
+  buzzer = new AudioContext();
+}
+function generateBuzzer(){
+  for(i=0;i<2;i++){
+    buzzerGains.push(buzzer.createGain());
+    buzzerOscillators.push(buzzer.createOscillator());
+
+    buzzerGains[i].gain.value = 0;
+    buzzerOscillators[i].frequency.value = C4 + 10*i;
+    buzzerOscillators[i].type = "sawtooth";
+    buzzerOscillators[i].start(0);
+
+    buzzerGains[i].connect(buzzer.destination);
+    buzzerOscillators[i].connect(buzzerGains[i]);
+  }
+}
+generateBuzzer();
+buzzerGains[0].gain.value = .0;
+buzzerGains[1].gain.value = .0;
+
+var scorecard = [];
+var score;
+function gradeMelody(){
+  score = 0;
+  for(i=0;i<goalMelody.length;i++){
+    if(goalMelody[i] === testMelody[i]){
+      scorecard[i] = 1 + level.current;
+    } else {
+      scorecard[i] = 1 - level.current * 2;
+    }
+    score += scorecard[i];
+    console.log(score);
+  }
+  console.log(goalMelody);
+  console.log(testMelody);
+  console.log(scorecard);
+}
 $('#check').click(function(){
-  addPoints(22);
+  gradeMelody();
+  addPoints(score);
 });
+
+console.log(goalMelody);
 
 });
 
@@ -439,6 +491,7 @@ $('#check').click(function(){
   <div id="play-area">
     <div id="composer">
       <div class="whole">
+        <div class="clear" id="clear">Clear Board</div>
         <div id="grid">
           <div class="column" data-col="0">
             <div class="row"></div>
@@ -513,7 +566,6 @@ $('#check').click(function(){
             <div class="row"></div>
           </div>
         </div>
-        <div class="clear" id="clear">Clear Board</div>
         <span class="num">1<span>
       </div>
     </div>

@@ -279,16 +279,17 @@ body {
   font-size: 16px;
   font-weight: 400;
   background-color: rgba(255, 255, 255, 0.1);
-  float: left;
+  float: right;
+  margin-top: -30px;
   padding: 7px;
   cursor: pointer;
 }
-/* line 180, ../sass/screen.scss */
+/* line 181, ../sass/screen.scss */
 #composer .num {
   font-weight: 600;
 }
 
-/* line 184, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 #playback-bar {
   position: absolute;
   left: 0;
@@ -299,24 +300,24 @@ body {
   z-index: 10;
 }
 
-/* line 193, ../sass/screen.scss */
+/* line 194, ../sass/screen.scss */
 .active-column {
   background-color: rgba(247, 148, 30, 0.25);
 }
 
-/* line 196, ../sass/screen.scss */
+/* line 197, ../sass/screen.scss */
 #source-container .no-bg {
   background: none;
 }
 
-/* line 199, ../sass/screen.scss */
+/* line 200, ../sass/screen.scss */
 #source-container {
   margin-top: 15px;
   width: 800px;
   z-index: 5;
 }
 
-/* line 204, ../sass/screen.scss */
+/* line 205, ../sass/screen.scss */
 .pep {
   float: left;
   height: 40px;
@@ -328,48 +329,48 @@ body {
   text-align: right;
   cursor: move;
 }
-/* line 214, ../sass/screen.scss */
+/* line 215, ../sass/screen.scss */
 .pep .numerator {
   text-decoration: underline;
 }
 
-/* line 218, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 .pep-active {
   z-index: 10;
 }
 
-/* line 221, ../sass/screen.scss */
+/* line 222, ../sass/screen.scss */
 .source {
   float: left;
   height: 40px;
   margin: 5px;
 }
 
-/* line 226, ../sass/screen.scss */
+/* line 227, ../sass/screen.scss */
 .half {
   width: 400px;
 }
-/* line 228, ../sass/screen.scss */
+/* line 229, ../sass/screen.scss */
 .half .pep {
   border-top: 7px solid #f7941e;
   background-color: rgba(247, 148, 30, 0.3);
 }
 
-/* line 233, ../sass/screen.scss */
+/* line 234, ../sass/screen.scss */
 .fourth {
   width: 200px;
 }
-/* line 235, ../sass/screen.scss */
+/* line 236, ../sass/screen.scss */
 .fourth .pep {
   border-top: 7px solid #9aab75;
   background-color: rgba(154, 171, 117, 0.3);
 }
 
-/* line 240, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 .eighth {
   width: 100px;
 }
-/* line 242, ../sass/screen.scss */
+/* line 243, ../sass/screen.scss */
 .eighth .pep {
   border-top: 7px solid #ffd64f;
   background-color: rgba(255, 214, 79, 0.3);
