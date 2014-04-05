@@ -253,6 +253,7 @@ function play(melody, beatLength, button){
   interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
   if(button === "test"){
     $('#grid').prepend("<div id='playback-bar'></div>");
+    $('#playback-bar').css("left");
     $('#playback-bar').css("left","795px");
     $('#play').css("background-color","white");
   }
