@@ -148,7 +148,7 @@ initializePep();
 //                                               BOARD CLEARING
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-$('#clear').click(function(){
+function clearBoard(){
   $columns.css({
     "background":"none",
     "border":"none"
@@ -162,6 +162,9 @@ $('#clear').click(function(){
   $("#source-container>.fourth").prepend($fourth.clone());
   $("#source-container>.eighth").prepend($eighth.clone());
   initializePep();
+}
+$('#clear').click(function(){
+  clearBoard();
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -236,10 +239,22 @@ function playback(melody, beatLength, button){
       startDecay(i);
     }
   }
+  if(button === "score"){
+    if(scorecard[beat] < 0){
+      buzzerGains[0].gain.value = .3;
+    } else {
+      buzzerGains[0].gain.value = 0;
+    }
+  }
   if (beat > 7){$('#playback-bar').remove()};
   if (beat > 9){
+    buzzerGains[0].gain.value = 0;
     stop();
-    play(melody, beatLength, button);
+    if(button != "score"){
+      play(melody, beatLength, button);
+    } else {
+      activateScore(); 
+    }
   } else {
     beat += 1;
   }
@@ -248,29 +263,35 @@ function playback(melody, beatLength, button){
 var interval;
 var isPlaying = false;
 function play(melody, beatLength, button){
-  isPlaying = true;
-  playback(melody, beatLength, button);
-  interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
-  if(button === "test"){
-    $('#grid').prepend("<div id='playback-bar'></div>");
-    $('#playback-bar').css("left");
-    $('#playback-bar').css("left","795px");
-    $('#play').css("background-color","white");
-  }
-  if(button === "listen"){
-    $('#listen').css("background-color","#fff");
-    $('#play-area').addClass("inactive");
-  }
-  if(button === "score"){
-    $('#grid').prepend("<div id='playback-bar'></div>");
-    $('#playback-bar').css("left");
-    $('#playback-bar').css("left","795px");
-    $('#score').css("background-color","white");
+  if (isPlaying === false){
+    isPlaying = true;
+    playback(melody, beatLength, button);
+    interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
+    if(button === "test"){
+      $('#grid').prepend("<div id='playback-bar'></div>");
+      $('#playback-bar').css("left");
+      $('#playback-bar').css("left","795px");
+      $('#play').css("background-color","white");
+    }
+    if(button === "listen"){
+      $('#listen').css("background-color","#fff");
+      $('#play-area').addClass("inactive");
+    }
+    if(button === "score"){
+      $('#grid').prepend("<div id='playback-bar'></div>");
+      $('#playback-bar').css("left");
+      $('#playback-bar').css("left","795px");
+      $('#score').css("background-color","white");
+    }
+  } else {
+    stop();
+    isPlaying = false;
   }
 }
 
 function stop(){
   beat = 0;
+  buzzerGains[0].gain.value = 0;
   $('#playback-bar').remove();
   clearInterval(interval);
   for(i=0;i<8;i++){
@@ -281,12 +302,7 @@ function stop(){
   $('#play-area').removeClass("inactive");
 }
 $('#play').click(function(){
-  if (isPlaying === false){
-    play(testMelody, 300, "test");
-  } else {
-    stop();
-    isPlaying = false;
-  }
+  play(testMelody, 300, "test");
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -294,20 +310,18 @@ $('#play').click(function(){
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var goalMelody = [];
-var note = Math.floor(Math.random() * 7);
-for(i=0;i<8;i++){
-  if(Math.random() > .5){
-    note = Math.floor(Math.random() * 7);
+function changeGoalMelody(){
+  var note = Math.floor(Math.random() * 7);
+  for(i=0;i<8;i++){
+    if(Math.random() > .5){
+      note = Math.floor(Math.random() * 7);
+    }
+    goalMelody[i] = note;
   }
-  goalMelody[i] = note;
 }
+changeGoalMelody();
 $('#listen').click(function(){
-  if (isPlaying === false){
-    play(goalMelody, 300, "listen");
-  } else {
-    stop();
-    isPlaying = false;
-  }
+  play(goalMelody, 300, "listen");
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -401,7 +415,7 @@ function generateBuzzer(){
     buzzerOscillators.push(buzzer.createOscillator());
 
     buzzerGains[i].gain.value = 0;
-    buzzerOscillators[i].frequency.value = C4 + 10*i;
+    buzzerOscillators[i].frequency.value = Db2 + 10*i;
     buzzerOscillators[i].type = "sawtooth";
     buzzerOscillators[i].start(0);
 
@@ -426,16 +440,27 @@ function gradeMelody(){
     score += scorecard[i];
   }
 }
+function activateScore(){
+  var possibleScore = (1 + level.current)*8;
+  if(score<0){score=0};
+  if(score != possibleScore){
+    if(confirm("Your melody got " + score + " out of a possible " + possibleScore + " points. Would you like add this to your total score and try a new melody?") === true){
+      addPoints(score);
+      changeGoalMelody();
+      clearBoard();
+    }
+  } else {
+    if(confirm("Your melody got a perfect " + score + " points! Would you like add this to your total score and try a new melody?") === true){
+      addPoints(score);
+      changeGoalMelody();
+      clearBoard();
+    }
+  }
+  
+}
 $('#score').click(function(){
   gradeMelody();
-  if (isPlaying === false){
-    play(testMelody, 300, "score");
-  } else {
-    stop();
-    isPlaying = false;
-  }
-  addPoints(score);
-  addPoints(17);
+  play(testMelody, 300, "score");
 });
 
 });
