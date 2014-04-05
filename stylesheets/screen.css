@@ -199,16 +199,20 @@ body {
   width: 0px;
   background-color: #f7941e;
   border-right: 5px solid rgba(255, 255, 255, 0.6);
+  -webkit-transition: width 1.5s;
+  -moz-transition: width 1.5s;
+  -o-transition: width 1.5s;
+  transition: width 1.5s;
 }
 
-/* line 114, ../sass/screen.scss */
+/* line 115, ../sass/screen.scss */
 #controls {
   width: 350px;
   height: 35px;
   background-color: #fff;
   color: #223e52;
 }
-/* line 119, ../sass/screen.scss */
+/* line 120, ../sass/screen.scss */
 #controls span {
   padding-top: 9px;
   display: block;
@@ -217,12 +221,12 @@ body {
   text-align: center;
   text-transform: uppercase;
 }
-/* line 127, ../sass/screen.scss */
+/* line 128, ../sass/screen.scss */
 #controls img {
   width: 30px;
   margin-left: 5px;
 }
-/* line 131, ../sass/screen.scss */
+/* line 132, ../sass/screen.scss */
 #controls li {
   height: 60px;
   width: 60px;
@@ -236,21 +240,21 @@ body {
   -moz-box-shadow: inset white 0 0 0 1px;
   box-shadow: inset white 0 0 0 1px;
 }
-/* line 141, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 #controls li:active {
   background-color: white;
 }
-/* line 144, ../sass/screen.scss */
+/* line 145, ../sass/screen.scss */
 #controls li label {
   letter-spacing: 1px;
   font-size: 11px;
 }
-/* line 149, ../sass/screen.scss */
+/* line 150, ../sass/screen.scss */
 #controls #help {
   padding-top: 3px;
 }
 
-/* line 153, ../sass/screen.scss */
+/* line 154, ../sass/screen.scss */
 #play-area {
   float: left;
   width: 100%;
@@ -266,16 +270,16 @@ body {
   transition: opacity .2s;
 }
 
-/* line 167, ../sass/screen.scss */
+/* line 168, ../sass/screen.scss */
 .inactive {
   opacity: 0.2;
 }
 
-/* line 171, ../sass/screen.scss */
+/* line 172, ../sass/screen.scss */
 #composer .whole {
   width: 800px;
 }
-/* line 174, ../sass/screen.scss */
+/* line 175, ../sass/screen.scss */
 #composer #grid {
   position: relative;
   height: 287px;
@@ -284,16 +288,16 @@ body {
   -moz-box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
   box-shadow: inset rgba(255, 255, 255, 0.3) 0 0 1px 1px;
 }
-/* line 180, ../sass/screen.scss */
+/* line 181, ../sass/screen.scss */
 #composer .column {
   width: 12.5%;
   float: left;
 }
-/* line 184, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 #composer .row {
   height: 40px;
 }
-/* line 187, ../sass/screen.scss */
+/* line 188, ../sass/screen.scss */
 #composer .clear {
   font-size: 16px;
   font-weight: 400;
@@ -303,12 +307,12 @@ body {
   padding: 7px;
   cursor: pointer;
 }
-/* line 196, ../sass/screen.scss */
+/* line 197, ../sass/screen.scss */
 #composer .num {
   font-weight: 600;
 }
 
-/* line 200, ../sass/screen.scss */
+/* line 201, ../sass/screen.scss */
 #playback-bar {
   position: absolute;
   left: 0;
@@ -323,24 +327,24 @@ body {
   transition: left 2.4s linear;
 }
 
-/* line 210, ../sass/screen.scss */
+/* line 211, ../sass/screen.scss */
 .active-column {
   background-color: rgba(247, 148, 30, 0.25);
 }
 
-/* line 213, ../sass/screen.scss */
+/* line 214, ../sass/screen.scss */
 #source-container .no-bg {
   background: none;
 }
 
-/* line 216, ../sass/screen.scss */
+/* line 217, ../sass/screen.scss */
 #source-container {
   margin-top: 15px;
   width: 800px;
   z-index: 5;
 }
 
-/* line 221, ../sass/screen.scss */
+/* line 222, ../sass/screen.scss */
 .pep {
   float: left;
   height: 40px;
@@ -352,48 +356,48 @@ body {
   text-align: right;
   cursor: move;
 }
-/* line 231, ../sass/screen.scss */
+/* line 232, ../sass/screen.scss */
 .pep .numerator {
   text-decoration: underline;
 }
 
-/* line 235, ../sass/screen.scss */
+/* line 236, ../sass/screen.scss */
 .pep-active {
   z-index: 10;
 }
 
-/* line 238, ../sass/screen.scss */
+/* line 239, ../sass/screen.scss */
 .source {
   float: left;
   height: 40px;
   margin: 5px;
 }
 
-/* line 243, ../sass/screen.scss */
+/* line 244, ../sass/screen.scss */
 .half {
   width: 400px;
 }
-/* line 245, ../sass/screen.scss */
+/* line 246, ../sass/screen.scss */
 .half .pep {
   border-top: 7px solid #f7941e;
   background-color: rgba(247, 148, 30, 0.3);
 }
 
-/* line 250, ../sass/screen.scss */
+/* line 251, ../sass/screen.scss */
 .fourth {
   width: 200px;
 }
-/* line 252, ../sass/screen.scss */
+/* line 253, ../sass/screen.scss */
 .fourth .pep {
   border-top: 7px solid #9aab75;
   background-color: rgba(154, 171, 117, 0.3);
 }
 
-/* line 257, ../sass/screen.scss */
+/* line 258, ../sass/screen.scss */
 .eighth {
   width: 100px;
 }
-/* line 259, ../sass/screen.scss */
+/* line 260, ../sass/screen.scss */
 .eighth .pep {
   border-top: 7px solid #ffd64f;
   background-color: rgba(255, 214, 79, 0.3);

@@ -263,6 +263,7 @@ function play(melody, beatLength, button){
   }
   if(button === "score"){
     $('#grid').prepend("<div id='playback-bar'></div>");
+    $('#playback-bar').css("left");
     $('#playback-bar').css("left","795px");
     $('#score').css("background-color","white");
   }
@@ -341,9 +342,8 @@ function scoreTicker(targetScore){
 }
 
 function growExpBar(targetScore,finalScore){
-  $('#experience').animate({
-    width: 100 * (targetScore - level.base) / (level.next - level.base) + "%"
-  }, expDuration);
+  $('#experience').css("width");
+  $('#experience').css("width",100 * (targetScore - level.base) / (level.next - level.base) + "%");
 }
 
 function levelUp(){
@@ -362,7 +362,8 @@ function levelUp(){
   level.current++;
   level.base = level.next;
   level.next = Math.floor(level.next + level.next*0.18 + 30);
-  $('#experience').width(0);
+  $('#experience').remove();
+  $('#level-meter').append('<div id="experience"></div>');
   updateCountdown();
 }
 
@@ -434,6 +435,7 @@ $('#score').click(function(){
     isPlaying = false;
   }
   addPoints(score);
+  addPoints(17);
 });
 
 });

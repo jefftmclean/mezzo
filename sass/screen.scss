@@ -110,6 +110,7 @@ body{
   width: 0px;
   background-color: $orange;
   border-right: 5px solid rgba(#fff,0.6);
+  @include transition(width 1.5s);
 }
 #controls{
   width: 350px;
