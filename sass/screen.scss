@@ -97,8 +97,8 @@ body{
   border-top: #fff solid 1px;
   position: relative;
   label{
-    width: 300px;
-    float: right;
+    position: absolute;
+    right: 0px;
     padding: 4px;
     text-align: right;
     color: #fff;
@@ -204,6 +204,7 @@ body{
   width: 5px;
   background-color: rgba(#fff,0.5);
   z-index: 10;
+  @include transition(left 2.4s linear);
 }
 .active-column{
   background-color: rgba($orange,0.25);

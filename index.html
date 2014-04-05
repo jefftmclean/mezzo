@@ -220,7 +220,7 @@ function startDecay(tone){
       }, false);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                         AUDIO PLAYBACK SETUP
+//                                               AUDIO PLAYBACK
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 var beat = 0;
@@ -243,7 +243,6 @@ function playback(melody, beatLength, button){
   } else {
     beat += 1;
   }
-  console.log("a;lskdjf");
 }
 
 var interval;
@@ -254,13 +253,17 @@ function play(melody, beatLength, button){
   interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
   if(button === "test"){
     $('#grid').prepend("<div id='playback-bar'></div>");
-    var measureLength = beatLength*8;
-    $('#playback-bar').animate({left: $('#grid').width()},measureLength,"linear");
+    $('#playback-bar').css("left","795px");
     $('#play').css("background-color","white");
   }
   if(button === "listen"){
     $('#listen').css("background-color","#fff");
     $('#play-area').addClass("inactive");
+  }
+  if(button === "score"){
+    $('#grid').prepend("<div id='playback-bar'></div>");
+    $('#playback-bar').css("left","795px");
+    $('#score').css("background-color","white");
   }
 }
 
@@ -295,7 +298,6 @@ for(i=0;i<8;i++){
     note = Math.floor(Math.random() * 7);
   }
   goalMelody[i] = note;
-  
 }
 $('#listen').click(function(){
   if (isPlaying === false){
@@ -420,18 +422,18 @@ function gradeMelody(){
       scorecard[i] = 1 - level.current * 2;
     }
     score += scorecard[i];
-    console.log(score);
   }
-  console.log(goalMelody);
-  console.log(testMelody);
-  console.log(scorecard);
 }
-$('#check').click(function(){
+$('#score').click(function(){
   gradeMelody();
+  if (isPlaying === false){
+    play(testMelody, 300, "score");
+  } else {
+    stop();
+    isPlaying = false;
+  }
   addPoints(score);
 });
-
-console.log(goalMelody);
 
 });
 
@@ -461,7 +463,7 @@ console.log(goalMelody);
       <div id="experience"></div>
     </div>
     <ul id="controls">
-      <li id="check">
+      <li id="score">
         <img src="assets/score.svg">
         <br><label>score</label>
       </li>
