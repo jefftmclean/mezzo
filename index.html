@@ -243,7 +243,7 @@ function playback(melody, beatLength, button){
   }
   if(button === "score"){
     if(scorecard[beat] < 0){
-      buzzerGains[0].gain.value = .3;
+      buzzerGains[0].gain.value = .15;
     } else {
       buzzerGains[0].gain.value = 0;
     }
@@ -304,7 +304,12 @@ function stop(){
   $('#play-area').removeClass("inactive");
 }
 $('#play').click(function(){
-  play(testMelody, 300, "test");
+  if(firstPlay){
+    alert("Listen to a sample melody first!")
+  } else {
+    play(testMelody, 300, "test");
+
+  }
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -322,8 +327,17 @@ function changeGoalMelody(){
   }
 }
 changeGoalMelody();
+var firstPlay = true;
 $('#listen').click(function(){
-  play(goalMelody, 300, "listen");
+  if(firstPlay === true){
+    firstPlay = false;
+    if(newMelodyAlert()){
+      play(goalMelody, 300, "listen"); 
+    }
+  } else {
+    play(goalMelody, 300, "listen"); 
+  }
+
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -455,13 +469,14 @@ function randomChild(){
   randNum = Math.floor(Math.random() * children.length);
   return children[randNum];
 }
-function activateScore(){
+function newMelodyAlert(){
   var child = randomChild();
+  alert("New melody ready! This melody was created by " + child.firstName + " " + child.lastInit + ", age " + child.age + ".");
+  play(goalMelody, 300, "listen");
+}
+function activateScore(){
   var possibleScore = (1 + level.current)*8;
   if(score<0){score=0};
-  function newMelodyAlert(){
-    alert("New melody ready! This melody was created by " + child.firstName + " " + child.lastInit + ", age " + child.age + ".");
-  }
   if(score != possibleScore){
     if(confirm("Your melody got " + score + " out of a possible " + possibleScore + " points. Would you like add this to your total score and try a new melody?") === true){
       addPoints(score);
@@ -480,11 +495,19 @@ function activateScore(){
   
 }
 $('#score').click(function(){
-  gradeMelody();
-  play(testMelody, 300, "score");
+  var empty;
+  for(i=0;i<testMelody.length;i++){
+    if(testMelody[i]){
+      empty = false;
+    }
+  }
+  if(empty === false){
+    gradeMelody();
+    play(testMelody, 300, "score");
+  } else {
+    alert("Put some pieces on the board first!");
+  }
 });
-
-newMelodyAlert();
 
 });
 
