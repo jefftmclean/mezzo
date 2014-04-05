@@ -304,11 +304,17 @@ function stop(){
   $('#play-area').removeClass("inactive");
 }
 $('#play').click(function(){
-  if(firstPlay){
-    alert("Listen to a sample melody first!")
+  var empty;
+  for(i=0;i<testMelody.length;i++){
+    if(testMelody[i]){
+      empty = false;
+    }
+  }
+  if(empty === false){
+    gradeMelody();
+    play(testMelody, 300, "score");
   } else {
-    play(testMelody, 300, "test");
-
+    alert("Put some pieces on the board first!");
   }
 });
 
@@ -412,6 +418,16 @@ function addPoints(increase){
     }, expDuration+50);
   }
 }
+$('#submit').click(function(){
+  var name = prompt("Your name:");
+  if(name){var age = prompt("Your age:")}
+  if(age){var classID = prompt("Class ID number: (enter 314 for demo)")}
+  if(classID){
+    if(confirm("Submit score of " + level.score + " for " + name + " to Ms. Breisch's math class?") === true){
+      alert("Score submitted!");
+    }
+  }
+});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                          GRADING AND SCORING
@@ -523,8 +539,7 @@ $('#score').click(function(){
       <span id="instructions"></span>
       <div id="scoring">
         <ul>
-          <li>Share Score</li>
-          <li>Leaderboard</li>
+          <li id="submit">Submit Score</li>
         </ul>
         <div>
           <label>Total Score</label>
@@ -537,6 +552,10 @@ $('#score').click(function(){
       <div id="experience"></div>
     </div>
     <ul id="controls">
+      <li id="share">
+        <img src="assets/score.svg">
+        <br><label>share</label>
+      </li>
       <li id="score">
         <img src="assets/score.svg">
         <br><label>score</label>
