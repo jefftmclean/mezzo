@@ -12,6 +12,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
   <script src="javascript/jquery.pep.js"></script>
   <script src="javascript/tones.js"></script>
+  <script src="javascript/children.js"></script>
   <script>
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -450,20 +451,30 @@ function gradeMelody(){
     score += scorecard[i];
   }
 }
+function randomChild(){
+  randNum = Math.floor(Math.random() * children.length);
+  return children[randNum];
+}
 function activateScore(){
+  var child = randomChild();
   var possibleScore = (1 + level.current)*8;
   if(score<0){score=0};
+  function newMelodyAlert(){
+    alert("New melody ready! This melody was created by " + child.firstName + " " + child.lastInit + ", age " + child.age + ".");
+  }
   if(score != possibleScore){
     if(confirm("Your melody got " + score + " out of a possible " + possibleScore + " points. Would you like add this to your total score and try a new melody?") === true){
       addPoints(score);
       changeGoalMelody();
       clearBoard();
+      setTimeout(newMelodyAlert,2000);
     }
   } else {
     if(confirm("Your melody got a perfect " + score + " points! Would you like add this to your total score and try a new melody?") === true){
       addPoints(score);
       changeGoalMelody();
       clearBoard();
+      setTimeout(newMelodyAlert,2000);
     }
   }
   
