@@ -428,6 +428,15 @@ generateBuzzer();
 buzzerGains[0].gain.value = .0;
 buzzerGains[1].gain.value = .0;
 
+//HACK FOR AUDIO API ON MOBILE
+      window.addEventListener('touchstart', function() {
+        var buffer = buzzer.createBuffer(1, 1, 22050);
+        var source = buzzer.createBufferSource();
+        source.buffer = buffer;
+        source.connect(buzzer.destination);
+        source.start(0);
+      }, false);
+
 var scorecard = [];
 var score;
 function gradeMelody(){
