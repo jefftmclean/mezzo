@@ -176,6 +176,8 @@ body{
     margin-bottom: -5px;
   }
   li{
+    display: list-item;
+    list-style: decimal;
     opacity: 0;
     background: none;
     @include transition(all .5s);
@@ -185,6 +187,7 @@ body{
     float: auto;
     text-align: left;
     padding: 15px;
+    margin-left: 35px;
     font-size: 18px;
     line-height: 24px;
   }
