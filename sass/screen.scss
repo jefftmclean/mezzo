@@ -159,6 +159,31 @@ body{
     padding-top: 3px;
   }
 }
+#rule-modal{
+  display: none;
+  margin-top: 6px;
+  height: 0;
+  width: 0;
+  position: absolute;
+  z-index: 15;
+  padding: 25px;
+  background-color: #fff;
+  @include transition(all .5s);
+  li{
+    background: none;
+    border: none;
+    height: auto;
+    width: 100%;
+    float: auto;
+    text-align: left;
+    padding: 25px;
+  }
+  &.active-modal{
+    height: 400px;
+    width: 500px;
+    display: block;
+  }
+}
 #play-area{
   float: left;
   width: 100%;
