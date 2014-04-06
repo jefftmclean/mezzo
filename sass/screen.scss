@@ -168,7 +168,7 @@ body{
   position: absolute;
   z-index: 15;
   background-color: #fff;
-  @include transition(all .5s);
+  @include transition(all .2s);
   img{
     width: 25px;
     margin-left: 1px;
@@ -179,7 +179,7 @@ body{
     opacity: 0;
     background: none;
     border-top: 7px solid #eee;
-    @include transition(all .5s);
+    @include transition(all .3s);
     @include box-shadow(none);
     height: 0px;
     width: 100%;

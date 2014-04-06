@@ -29,6 +29,7 @@ for(i=0;i<8;i++){
   testMelody[i] = null;
 }
 var isPlaying = false;
+var firstPlay = true;
 
 //SCORING VARIABLES
 var scorecard = [];
@@ -45,14 +46,25 @@ var expDuration = 1000;
 //                                              WEB AUDIO SETUP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+//grab frequency values from tones.js
 var tones = [A4,G4,E4,D4,B3,A3,G3];
-
+//initialize audio context
 var context;
 if (! window.AudioContext){
   context = new webkitAudioContext();
 } else {
   context = new AudioContext();
 }
+//hack to initialize web audio API on mobile
+window.addEventListener('touchstart', function() {
+  var buffer = context.createBuffer(1, 1, 22050);
+  var source = context.createBufferSource();
+  source.buffer = buffer;
+  source.connect(context.destination);
+  source.start(0);
+}, false);
+
+//set up synthesizers
 var gains = [];
 var envelopes = [];
 var oscillators = [];
@@ -61,60 +73,40 @@ function generateSynth(){
     gains.push(context.createGain());
     envelopes.push(context.createGain());
     oscillators.push(context.createOscillator());
-
     gains[i].gain.value = 0;
     envelopes[i].gain.value = 0;
-    console.log(tones[i]);
     oscillators[i].frequency.value = tones[i];
     oscillators[i].type = "sine";
     oscillators[i].start(0);
-
     gains[i].connect(context.destination);
     envelopes[i].connect(gains[i]);
     oscillators[i].connect(envelopes[i]);
   }
 }
 generateSynth();
-
-//fancy sound modeling
+//fancy sound modeling for main synth
 function startAttack(tone){
   var now = context.currentTime;
   envelopes[tone].gain.setTargetAtTime(1.0, now, .08);
 };
-
 function startDecay(tone){
   var now = context.currentTime;
   envelopes[tone].gain.setTargetAtTime(0.0, now, .08);
 };
-
-//HACK FOR AUDIO API ON MOBILE
-      window.addEventListener('touchstart', function() {
-        var buffer = context.createBuffer(1, 1, 22050);
-        var source = context.createBufferSource();
-        source.buffer = buffer;
-        source.connect(context.destination);
-        source.start(0);
-      }, false);
-
-var buzzer;
-if (! window.AudioContext){
-  buzzer = new webkitAudioContext();
-} else {
-  buzzer = new AudioContext();
-}
+//set up annoying buzzer sound
 var buzzerOscillators = [];
 var buzzerGains = [];
 function generateBuzzer(){
   for(i=0;i<2;i++){
-    buzzerGains.push(buzzer.createGain());
-    buzzerOscillators.push(buzzer.createOscillator());
+    buzzerGains.push(context.createGain());
+    buzzerOscillators.push(context.createOscillator());
 
     buzzerGains[i].gain.value = 0;
     buzzerOscillators[i].frequency.value = Db2 + 10*i;
     buzzerOscillators[i].type = "sawtooth";
     buzzerOscillators[i].start(0);
 
-    buzzerGains[i].connect(buzzer.destination);
+    buzzerGains[i].connect(context.destination);
     buzzerOscillators[i].connect(buzzerGains[i]);
   }
 }
@@ -122,14 +114,6 @@ generateBuzzer();
 buzzerGains[0].gain.value = .0;
 buzzerGains[1].gain.value = .0;
 
-//HACK FOR AUDIO API ON MOBILE
-      window.addEventListener('touchstart', function() {
-        var buffer = buzzer.createBuffer(1, 1, 22050);
-        var source = buzzer.createBufferSource();
-        source.buffer = buffer;
-        source.connect(buzzer.destination);
-        source.start(0);
-      }, false);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -146,6 +130,18 @@ var $half = $('#source-container .source .half').clone();
 var $fourth = $('#source-container .source .fourth').clone();
 var $eighth = $('#source-container .source .eighth').clone();
 
+var $experience = $('#experience');
+var $rulesButton = $('#rules');
+var $ruleModal = $('#rule-modal');
+var $listenButton = $('#listen');
+var $testButton = $('#test');
+var $scoreButton = $('#score');
+var $shareButton = $('#share');
+var $submitButton = $('#submit');
+var $grid = $('#grid');
+var $playbackBar = $('#playback-bar');
+var $playArea = $('#play-area');
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                             AUTO-PAGE RELOAD
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -157,39 +153,6 @@ function resetTimeout() {
 }
 $('body').click(function(){
   resetTimeout();
-});
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                                  RULE MODALS
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-var activeRules = false;
-function clearRules(){
-  $('#rules').removeClass("active-control");
-  $('#rule-modal').removeClass("active-modal");
-  $('#play-area').removeClass("inactive");
-}
-function showRules(){
-  $('#rules').addClass("active-control");
-  $('#rule-modal').addClass("active-modal", $('#rules li').css("display","list-item"));
-  $('#play-area').addClass("inactive");
-}
-$('#rules').click(function(){
-  stop();
-  if(activeRules === false){
-    $('#rule-modal').css("height");
-    showRules();
-    $('#play-area').click(function(){
-      clearRules();
-      $('#play-area').unbind("click");
-      activeRules = false;
-    });
-    activeRules = true;
-  } else {
-    activeRules = false;
-    clearRules();
-    $('#play-area').unbind("click");
-  }
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -232,14 +195,17 @@ function playback(melody, beatLength, button){
   }
   if(button === "score"){
     if(scorecard[beat] < 0){
-      buzzerGains[0].gain.value = .15;
+      buzzerGains[0].gain.value = .1;
+      buzzerGains[1].gain.value = .1;
     } else {
       buzzerGains[0].gain.value = 0;
+      buzzerGains[1].gain.value = 0;
     }
   }
-  if (beat > 7){$('#playback-bar').remove()};
+  if (beat > 7){$playbackBar.remove()};
   if (beat > 9){
     buzzerGains[0].gain.value = 0;
+    buzzerGains[1].gain.value = 0;
     stop();
     if(button != "score"){
       play(melody, beatLength, button);
@@ -258,20 +224,22 @@ function play(melody, beatLength, button){
     playback(melody, beatLength, button);
     interval = setInterval(function(){playback(melody, beatLength, button)}, beatLength);
     if(button === "test"){
-      $('#grid').prepend("<div id='playback-bar'></div>");
-      $('#playback-bar').css("left");
-      $('#playback-bar').css("left","795px");
-      $('#play').addClass("active-control");
+      $grid.prepend("<div id='playback-bar'></div>");
+      $playbackBar = $('#playback-bar');
+      $playbackBar.css("left");
+      $playbackBar.css("left","795px");
+      $testButton.addClass("active-control");
     }
     if(button === "listen"){
-      $('#listen').addClass("active-control");
-      $('#play-area').addClass("inactive");
+      $listenButton.addClass("active-control");
+      $playArea.addClass("inactive");
     }
     if(button === "score"){
-      $('#grid').prepend("<div id='playback-bar'></div>");
-      $('#playback-bar').css("left");
-      $('#playback-bar').css("left","795px");
-      $('#score').addClass("active-control");
+      $grid.prepend("<div id='playback-bar'></div>");
+      $playbackBar = $('#playback-bar');
+      $playbackBar.css("left");
+      $playbackBar.css("left","795px");
+      $scoreButton.addClass("active-control");
     }
   } else {
     stop();
@@ -282,29 +250,15 @@ function play(melody, beatLength, button){
 function stop(){
   beat = 0;
   buzzerGains[0].gain.value = 0;
-  $('#playback-bar').remove();
+  $playbackBar.remove();
   clearInterval(interval);
   for(i=0;i<7;i++){
     gains[i].gain.value = 0;
   }
   isPlaying = false;
   $('#controls .active-control').removeClass("active-control");
-  $('#play-area').removeClass("inactive");
+  $playArea.removeClass("inactive");
 }
-$('#play').click(function(){
-  clearRules();
-  var empty;
-  for(i=0;i<testMelody.length;i++){
-    if(testMelody[i]){
-      empty = false;
-    }
-  }
-  if(empty === false){
-    play(testMelody, 300, "test");
-  } else {
-    alert("Put some pieces on the board first!");
-  }
-});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                            GOAL MELODY SETUP
@@ -320,19 +274,6 @@ function changeGoalMelody(){
   }
 }
 changeGoalMelody();
-var firstPlay = true;
-$('#listen').click(function(){
-  clearRules();
-  if(firstPlay === true){
-    firstPlay = false;
-    if(newMelodyAlert()){
-      play(goalMelody, 300, "listen"); 
-    }
-  } else {
-    play(goalMelody, 300, "listen"); 
-  }
-
-});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                  POINT SETUP
@@ -357,8 +298,8 @@ function scoreTicker(targetScore){
 }
 
 function growExpBar(targetScore,finalScore){
-  $('#experience').css("width");
-  $('#experience').css("width",100 * (targetScore - level.base) / (level.next - level.base) + "%");
+  $experience.css("width");
+  $experience.css("width",100 * (targetScore - level.base) / (level.next - level.base) + "%");
 }
 
 function levelUp(){
@@ -370,15 +311,17 @@ function levelUp(){
       $this.html("Level " + level.current);
       $this.animate(
         {"letter-spacing":"0px","opacity":"1"},
-        expDuration+100
+        expDuration+100,
+        newMelodyAlert
       );
     }
   );
   level.current++;
   level.base = level.next;
   level.next = Math.floor(level.next + level.next*0.4 + 30);
-  $('#experience').remove();
+  $experience.remove();
   $('#level-meter').append('<div id="experience"></div>');
+  $experience = $('#experience');
   updateCountdown();
 }
 
@@ -397,15 +340,6 @@ function addPoints(increase){
     }, expDuration+50);
   }
 }
-$('#submit').click(function(){
-  var classID = prompt("Class ID number: (enter 314 for demo)");
-  if(classID){var name = prompt("Class " + classID + " is Mr. Kelly's Math Class. Please enter your name:")}
-  if(name){
-    if(confirm("Submit score of " + level.score + " for " + name + " to Mr. Kelly's Math Class?") === true){
-      alert("Score submitted to Mr. Kelly's Math Class!");
-    }
-  }
-});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                          GRADING AND SCORING
@@ -439,63 +373,16 @@ function activateScore(){
       addPoints(score);
       changeGoalMelody();
       clearBoard();
-      setTimeout(newMelodyAlert,2000);
     }
   } else {
     if(confirm("Your melody got a perfect " + score + " points! Would you like add this to your total score and try a new melody?") === true){
       addPoints(score);
       changeGoalMelody();
       clearBoard();
-      setTimeout(newMelodyAlert,2000);
     }
   }
   
 }
-$('#score').click(function(){
-  clearRules();
-  var empty = true;
-  for(i=0;i<testMelody.length;i++){
-    if(testMelody[i]){
-      empty = false;
-    }
-  }
-  if(firstPlay){
-    alert("Listen to the sample melody first!");
-  } else if (empty){
-    alert("Put some pieces on the board first!");
-  } else {
-    gradeMelody();
-    play(testMelody, 300, "score");
-  }
-});
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//                                                      SHARING
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-$('#share').click(function(){
-  clearRules();
-  stop();
-  var incomplete = false;
-  for(i=0;i<testMelody.length;i++){
-    if(testMelody[i] === null){
-      incomplete = true;
-    }
-  }
-  if(incomplete){
-    alert("Finish your melody first!");
-  } else {
-    $(this).addClass("active-control");
-    var name = prompt("Your name:");
-    if(name){var age = prompt("Your age:")}
-    if(age){
-      if(confirm("Would you like to share your melody as " + name + ", age " + age + "?") === true){
-        alert("Your melody has been added to Mezzo!");
-      }
-    }
-  }
-  $(this).removeClass("active-control");
-});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                DRAG-AND-DROP
@@ -606,6 +493,118 @@ function initializePep(){
 };
 initializePep();
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                                  RULE MODALS
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var activeRules = false;
+function clearRules(){
+  $rulesButton.removeClass("active-control");
+  $ruleModal.removeClass("active-modal");
+  $playArea.removeClass("inactive");
+}
+function showRules(){
+  $rulesButton.addClass("active-control");
+  $ruleModal.addClass("active-modal", $('#rules li').css("display","list-item"));
+  $playArea.addClass("inactive");
+}
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                              CONTROL BUTTONS
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+$rulesButton.click(function(){
+  stop();
+  if(activeRules === false){
+    $ruleModal.css("height");
+    showRules();
+    $playArea.click(function(){
+      clearRules();
+      $playArea.unbind("click");
+      activeRules = false;
+    });
+    activeRules = true;
+  } else {
+    activeRules = false;
+    clearRules();
+    $playArea.unbind("click");
+  }
+});
+$listenButton.click(function(){
+  clearRules();
+  if(firstPlay === true){
+    firstPlay = false;
+    if(newMelodyAlert()){
+      play(goalMelody, 300, "listen"); 
+    }
+  } else {
+    play(goalMelody, 300, "listen"); 
+  }
+});
+$testButton.click(function(){
+  clearRules();
+  var empty;
+  for(i=0;i<testMelody.length;i++){
+    if(testMelody[i] != null){
+      empty = false;
+    }
+  }
+  if(empty === false){
+    play(testMelody, 300, "test");
+  } else {
+    alert("Put some pieces on the board first!");
+  }
+});
+$scoreButton.click(function(){
+  clearRules();
+  var empty;
+  for(i=0;i<testMelody.length;i++){
+    if(testMelody[i] != null){
+      empty = false;
+    }
+  }
+  if(firstPlay){
+    alert("Listen to the sample melody first!");
+  } else if (empty){
+    alert("Put some pieces on the board first!");
+  } else {
+    gradeMelody();
+    play(testMelody, 300, "score");
+  }
+});
+$shareButton.click(function(){
+  clearRules();
+  stop();
+  var incomplete = false;
+  for(i=0;i<testMelody.length;i++){
+    if(testMelody[i] === null){
+      incomplete = true;
+    }
+  }
+  if(incomplete){
+    alert("Finish your melody first!");
+  } else {
+    $(this).addClass("active-control");
+    var name = prompt("Your name:");
+    if(name){var age = prompt("Your age:")}
+    if(age){
+      if(confirm("Would you like to share your melody as " + name + ", age " + age + "?") === true){
+        alert("Your melody has been added to Mezzo!");
+      }
+    }
+  }
+  $(this).removeClass("active-control");
+});
+$submitButton.click(function(){
+  var classID = prompt("Class ID number: (enter 314 for demo)");
+  if(classID){var name = prompt("Class " + classID + " is Mr. Kelly's Math Class. Please enter your name:")}
+  if(name){
+    if(confirm("Submit score of " + level.score + " for " + name + " to Mr. Kelly's Math Class?") === true){
+      alert("Score submitted to Mr. Kelly's Math Class!");
+    }
+  }
+});
+
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -641,7 +640,7 @@ initializePep();
         <img src="assets/score.svg">
         <br><label>score</label>
       </li>
-      <li id="play">
+      <li id="test">
         <img src="assets/try.svg">
         <br><label>test</label>
       </li>
