@@ -15,12 +15,6 @@
   <script src="javascript/children.js"></script>
   <script>
 
-var isTouchScreen;
-if(typeof document.body.ontouchstart == "undefined"){
-  isTouchScreen = true;
-} else {
-  isTouchScreen = false;
-}
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -125,6 +119,13 @@ buzzerGains[1].gain.value = .0;
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 $(document).ready(function(){
+
+var isTouchScreen;
+if(typeof document.body.ontouchstart == "undefined"){
+  isTouchScreen = true;
+} else {
+  isTouchScreen = false;
+}
 
 //ELEMENT VARIABLES
 var $columns = $('#grid .column');
