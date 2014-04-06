@@ -497,7 +497,7 @@ function gradeMelody(){
   score = 0;
   for(i=0;i<goalMelody.length;i++){
     if(goalMelody[i] === testMelody[i]){
-      scorecard[i] = 1 + level.current;
+      scorecard[i] = (1 + level.current) * 2;
     } else {
       scorecard[i] = 1 - level.current * 2;
     }
@@ -514,7 +514,7 @@ function newMelodyAlert(){
   play(goalMelody, 300, "listen");
 }
 function activateScore(){
-  var possibleScore = (1 + level.current)*8;
+  var possibleScore = (1 + level.current)*16;
   if(score<0){score=0};
   if(score != possibleScore){
     if(confirm("Your melody got " + score + " out of a possible " + possibleScore + " points. Would you like add this to your total score and try a new melody?") === true){
@@ -578,7 +578,7 @@ $('#score').click(function(){
     </div>
     <ul id="controls">
       <li id="share">
-        <img src="assets/score.svg">
+        <img src="assets/share.svg">
         <br><label>share</label>
       </li>
       <li id="score">
