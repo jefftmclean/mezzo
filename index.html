@@ -376,7 +376,7 @@ function levelUp(){
   );
   level.current++;
   level.base = level.next;
-  level.next = Math.floor(level.next + level.next*0.18 + 30);
+  level.next = Math.floor(level.next + level.next*0.4 + 30);
   $('#experience').remove();
   $('#level-meter').append('<div id="experience"></div>');
   updateCountdown();
