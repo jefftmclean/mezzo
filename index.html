@@ -496,17 +496,20 @@ initializePep();
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                  RULE MODALS
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+var $$rulesButton = document.getElementById("rules");
+var $$ruleModal = document.getElementById("rule-modal");
+var $$playArea = document.getElementById("play-area");
 
 var activeRules = false;
 function clearRules(){
-  $rulesButton.removeClass("active-control");
-  $ruleModal.removeClass("active-modal");
-  $playArea.removeClass("inactive");
+  $$rulesButton.classList.remove("active-control");
+  $$ruleModal.classList.remove("active-modal");
+  $$playArea.classList.remove("inactive");
 }
 function showRules(){
-  $rulesButton.addClass("active-control");
-  $ruleModal.addClass("active-modal", $('#rules li').css("display","list-item"));
-  $playArea.addClass("inactive");
+  $$rulesButton.classList.add("active-control");
+  $$ruleModal.classList.add("active-modal");
+  $$playArea.classList.add("inactive");
 }
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
