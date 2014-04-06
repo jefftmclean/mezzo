@@ -163,26 +163,33 @@ body{
   opacity: 0;
   margin-top: 6px;
   height: 0;
-  width: 0;
+  width: 60px;
   position: absolute;
   z-index: 15;
   padding: 0;
   background-color: #fff;
   @include transition(all .5s);
+  img{
+    width: 25px;
+    margin-left: 1px;
+    margin-bottom: -5px;
+  }
   li{
     opacity: 0;
-    @include transition(all .5s);
     background: none;
+    @include transition(all .5s);
     @include box-shadow(none);
     height: auto;
     width: 100%;
     float: auto;
     text-align: left;
-    padding: 25px;
+    padding: 15px;
+    font-size: 18px;
+    line-height: 24px;
   }
   &.active-modal{
     height: 400px;
-    width: 500px;
+    width: 600px;
     opacity: 1;
     padding: 25px;
     li{
