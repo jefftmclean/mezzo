@@ -16,7 +16,7 @@
   <script>
 
 var isTouchScreen;
-if ("ontouchstart" in document.documentElement){
+if(typeof document.body.ontouchstart == "undefined"){
   isTouchScreen = true;
 } else {
   isTouchScreen = false;
