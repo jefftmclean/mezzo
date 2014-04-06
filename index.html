@@ -512,8 +512,7 @@ function showRules(){
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                              CONTROL BUTTONS
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-$rulesButton.click(function(){
+function rulesClick(){
   stop();
   if(activeRules === false){
     $ruleModal.css("height");
@@ -529,7 +528,25 @@ $rulesButton.click(function(){
     clearRules();
     $playArea.unbind("click");
   }
-});
+}
+document.getElementById("rules").addEventListener("click",rulesClick);
+// $rulesButton.click(function(){
+//   stop();
+//   if(activeRules === false){
+//     $ruleModal.css("height");
+//     showRules();
+//     $playArea.click(function(){
+//       clearRules();
+//       $playArea.unbind("click");
+//       activeRules = false;
+//     });
+//     activeRules = true;
+//   } else {
+//     activeRules = false;
+//     clearRules();
+//     $playArea.unbind("click");
+//   }
+// });
 $listenButton.click(function(){
   clearRules();
   if(firstPlay === true){
