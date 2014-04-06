@@ -15,6 +15,13 @@
   <script src="javascript/children.js"></script>
   <script>
 
+var isTouchScreen;
+if ("ontouchstart" in document.documentElement){
+  isTouchScreen = true;
+} else {
+  isTouchScreen = false;
+}
+
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                 MELODY SETUP
@@ -532,7 +539,11 @@ function rulesClick(){
     $playArea.unbind("click");
   }
 }
-document.getElementById("rules").addEventListener("click",rulesClick);
+if(isTouchScreen){
+  $$rulesButton.addEventListener("ontouchstart",rulesClick);
+} else {
+  $$rulesButton.addEventListener("click",rulesClick);
+}
 // $rulesButton.click(function(){
 //   stop();
 //   if(activeRules === false){
