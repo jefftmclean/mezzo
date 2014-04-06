@@ -170,8 +170,9 @@ body{
   background-color: #fff;
   @include transition(all .5s);
   li{
+    display: none;
     background: none;
-    border: none;
+    @include box-shadow(none);
     height: auto;
     width: 100%;
     float: auto;
@@ -182,6 +183,7 @@ body{
     height: 400px;
     width: 500px;
     display: block;
+
   }
 }
 #play-area{

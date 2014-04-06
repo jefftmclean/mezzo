@@ -38,7 +38,7 @@ function clearRules(){
 }
 function showRules(){
   $('#rules').addClass("active-control");
-  $('#rule-modal').addClass("active-modal");
+  $('#rule-modal').addClass("active-modal", $('#rules li').css("display","block"));
   $('#play-area').addClass("inactive");
 }
 $('#rules').click(function(){
