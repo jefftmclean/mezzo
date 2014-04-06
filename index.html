@@ -15,6 +15,7 @@
   <script src="javascript/children.js"></script>
   <script>
 
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                 MELODY SETUP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -25,6 +26,19 @@ for(i=0;i<8;i++){
 }
 
 $(document).ready(function(){
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                             AUTO-PAGE RELOAD
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var timeout = setTimeout("location.reload(true);",180000);
+function resetTimeout() {
+  clearTimeout(timeout);
+  timeout = setTimeout("location.reload(true);",180000);
+}
+$('body').click(function(){
+  resetTimeout();
+});
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                  RULE MODALS
