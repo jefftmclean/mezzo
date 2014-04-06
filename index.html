@@ -27,6 +27,30 @@ for(i=0;i<8;i++){
 $(document).ready(function(){
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//                                                  RULE MODALS
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var activeRules = false;
+$('#rules').click(function(){
+  if(activeRules === false){
+    $(this).toggleClass("active-control");
+    $('#play-area').toggleClass("inactive");
+    $('#play-area').click(function(){
+      $('#rules').toggleClass("active-control");
+      $('#play-area').toggleClass("inactive");
+      $('#play-area').unbind("click");
+      activeRules = false;
+    });
+    activeRules = true;
+  } else {
+    activeRules = false;
+    $(this).toggleClass("active-control");
+    $('#play-area').toggleClass("inactive");
+    $('#play-area').unbind("click");
+  }
+});
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //                                                DRAG-AND-DROP
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -273,17 +297,17 @@ function play(melody, beatLength, button){
       $('#grid').prepend("<div id='playback-bar'></div>");
       $('#playback-bar').css("left");
       $('#playback-bar').css("left","795px");
-      $('#play').css("background-color","white");
+      $('#play').addClass("active-control");
     }
     if(button === "listen"){
-      $('#listen').css("background-color","#fff");
+      $('#listen').addClass("active-control");
       $('#play-area').addClass("inactive");
     }
     if(button === "score"){
       $('#grid').prepend("<div id='playback-bar'></div>");
       $('#playback-bar').css("left");
       $('#playback-bar').css("left","795px");
-      $('#score').css("background-color","white");
+      $('#score').addClass("active-control");
     }
   } else {
     stop();
@@ -300,7 +324,7 @@ function stop(){
     gains[i].gain.value = 0;
   }
   isPlaying = false;
-  $('#controls li').css("background-color","#ffd64f");
+  $('#controls .active-control').removeClass("active-control");
   $('#play-area').removeClass("inactive");
 }
 $('#play').click(function(){
@@ -311,8 +335,7 @@ $('#play').click(function(){
     }
   }
   if(empty === false){
-    gradeMelody();
-    play(testMelody, 300, "score");
+    play(testMelody, 300, "test");
   } else {
     alert("Put some pieces on the board first!");
   }
@@ -511,17 +534,19 @@ function activateScore(){
   
 }
 $('#score').click(function(){
-  var empty;
+  var empty = true;
   for(i=0;i<testMelody.length;i++){
     if(testMelody[i]){
       empty = false;
     }
   }
-  if(empty === false){
+  if(firstPlay){
+    alert("Listen to the sample melody first!");
+  } else if (empty){
+    alert("Put some pieces on the board first!");
+  } else {
     gradeMelody();
     play(testMelody, 300, "score");
-  } else {
-    alert("Put some pieces on the board first!");
   }
 });
 
@@ -568,7 +593,7 @@ $('#score').click(function(){
         <img src="assets/listen.svg">
         <br><label>listen</label>
       </li>
-      <li id="task">
+      <li id="rules">
         <img src="assets/rules.svg">
         <br><label>rules</label>
       </li>

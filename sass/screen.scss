@@ -139,8 +139,9 @@ body{
     line-height: 12px;
     padding-top: 9px;
     @include box-shadow(inset #fff 0 0 0 1px);
-    &:active{
-      background-color: white;
+    @include transition(background-color .2s);
+    &.active-control{
+      background-color: #fff;
     }
     label{
       letter-spacing: 1px;

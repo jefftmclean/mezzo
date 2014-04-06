@@ -23,4 +23,3 @@ children = [];
 for(i=0;i<50;i++){
   children.push(new Child(randomFirst(),randomLetter(),randomAge()));
 }
-console.log(children);
