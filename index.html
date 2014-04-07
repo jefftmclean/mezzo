@@ -252,6 +252,7 @@ function play(melody, beatLength, button){
 function stop(){
   beat = 0;
   buzzerGains[0].gain.value = 0;
+  buzzerGains[1].gain.value = 0;
   $playbackBar.remove();
   clearInterval(interval);
   for(i=0;i<7;i++){
@@ -313,8 +314,7 @@ function levelUp(){
       $this.html("Level " + level.current);
       $this.animate(
         {"letter-spacing":"0px","opacity":"1"},
-        expDuration+100,
-        newMelodyAlert
+        expDuration+100
       );
     }
   );
@@ -332,6 +332,7 @@ function addPoints(increase){
   if (targetScore < level.next){
     scoreTicker(targetScore);
     growExpBar(targetScore);
+    setTimeout(newMelodyAlert,expDuration+600);
   } else {
     increase = targetScore - level.next;
     scoreTicker(level.next);
