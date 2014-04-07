@@ -615,31 +615,27 @@ $scoreButton.click(function(){
   }
 });
 $shareButton.click(function(){
-  if(isPlaying===false){
-    clearRules();
-    stop();
-    var incomplete = false;
-    for(i=0;i<testMelody.length;i++){
-      if(testMelody[i] === null){
-        incomplete = true;
-      }
+  clearRules();
+  stop();
+  var incomplete = false;
+  for(i=0;i<testMelody.length;i++){
+    if(testMelody[i] === null){
+      incomplete = true;
     }
-    if(incomplete){
-      alert("Finish your melody first!");
-    } else {
-      $(this).addClass("active-control");
-      var name = prompt("Your name:");
-      if(name){var age = prompt("Your age:")}
-      if(age){
-        if(confirm("Would you like to share your melody as " + name + ", age " + age + "?") === true){
-          alert("Your melody has been added to Mezzo!");
-        }
-      }
-    }
-    $(this).removeClass("active-control");
-  } else {
-    stop();
   }
+  if(incomplete){
+    alert("Finish your melody first!");
+  } else {
+    $(this).addClass("active-control");
+    var name = prompt("Your name:");
+    if(name){var age = prompt("Your age:")}
+    if(age){
+      if(confirm("Would you like to share your melody as " + name + ", age " + age + "?") === true){
+        alert("Your melody has been added to Mezzo!");
+      }
+    }
+  }
+  $(this).removeClass("active-control");
 });
 $submitButton.click(function(){
   var classID = prompt("Class ID number: (enter 314 for demo)");
