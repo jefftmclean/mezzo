@@ -207,48 +207,48 @@ body {
 @-webkit-keyframes slide {
   /* line 116, ../sass/screen.scss */
   0% {
-    left: 0;
+    left: 5%;
   }
 
   /* line 117, ../sass/screen.scss */
   100% {
-    left: 100%;
+    left: 95%;
   }
 }
 
 @-moz-keyframes slide {
   /* line 120, ../sass/screen.scss */
   0% {
-    left: 0;
+    left: 5%;
   }
 
   /* line 121, ../sass/screen.scss */
   100% {
-    left: 100%;
+    left: 95%;
   }
 }
 
 @-o-keyframes slide {
   /* line 124, ../sass/screen.scss */
   0% {
-    left: 0;
+    left: 5%;
   }
 
   /* line 125, ../sass/screen.scss */
   100% {
-    left: 100%;
+    left: 95%;
   }
 }
 
 @keyframes slide {
   /* line 128, ../sass/screen.scss */
   0% {
-    left: 0;
+    left: 5%;
   }
 
   /* line 129, ../sass/screen.scss */
   100% {
-    left: 100%;
+    left: 95%;
   }
 }
 
