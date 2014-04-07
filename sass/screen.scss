@@ -57,6 +57,77 @@ body{
   background: radial-gradient(ellipse at center,  #396172 0%,#192b33 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#396172', endColorstr='#192b33',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+#container{
+  @include transition(opacity 2.5s);
+  opacity: 0;
+  &.visible{
+    opacity: 1;
+  }
+}
+#intro{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background-color: #fff;
+  img{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 200px;
+  }
+  div{
+    margin-top: 100px;
+    width: 100%;
+  }
+  .button{
+    width: 330px;
+    margin: 0 auto;
+    padding: 20px;
+    @include border-radius(2px);
+    background-color: $yellow;
+    @include box-shadow(0 3px 10px 0 rgba(#000, 0.2));
+    cursor: pointer;
+  }
+  h1{
+    text-align: center;
+    font-size: 36px;
+    color: $navy;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 10px;
+  }
+  #intro-bar{
+    position: absolute;
+    margin: 0;
+    z-index: 60;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background: #fff;
+    -webkit-animation: slide 3s linear infinite;
+    -moz-animation: slide 3s linear infinite;
+    -o-animation: slide 3s linear infinite;
+    animation: slide 3s linear infinite;
+  }
+}
+@-webkit-keyframes slide {
+  0% {left: 0;}
+  100% {left: 100%;}
+}
+@-moz-keyframes slide {
+  0% {left: 0;}
+  100% {left: 100%;}
+}
+@-o-keyframes slide {
+  0% {left: 0;}
+  100% {left: 100%;}
+}
+@keyframes slide {
+  0% {left: 0;}
+  100% {left: 100%;}
+}
 #top{
   height: 80px;
 }

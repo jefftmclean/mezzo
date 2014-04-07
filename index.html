@@ -120,13 +120,6 @@ buzzerGains[1].gain.value = .0;
 
 $(document).ready(function(){
 
-var isTouchScreen;
-if(typeof document.body.ontouchstart == "undefined"){
-  isTouchScreen = true;
-} else {
-  isTouchScreen = false;
-}
-
 //ELEMENT VARIABLES
 var $columns = $('#grid .column');
 var $rows = $('#grid .row');
@@ -540,12 +533,9 @@ function rulesClick(){
     $playArea.unbind("click");
   }
 }
-if(isTouchScreen){
-  $$rulesButton.addEventListener("ontouchstart",rulesClick);
-} else {
-  $$rulesButton.addEventListener("click",rulesClick);
-}
+$$rulesButton.addEventListener("click",rulesClick);
 // $rulesButton.click(function(){
+//   rulesClick();
 //   stop();
 //   if(activeRules === false){
 //     $ruleModal.css("height");
@@ -636,6 +626,13 @@ $submitButton.click(function(){
     }
   }
 });
+$('#intro').click(function(){
+  $(this).fadeOut(1000, function(){
+    $('#container').css("visibility");
+    $('#container').addClass('visible');
+    setTimeout(rulesClick, 2000);
+  });
+});
 
 });
 
@@ -645,146 +642,153 @@ $submitButton.click(function(){
   </script>
 </head>
 <body>
-  <div id="header">
-    <div id="top">
-      <img id="logo" src="assets/logo.svg" alt="mezzo">
-      <span id="instructions"></span>
-      <div id="scoring">
-        <ul>
-          <li id="submit">Submit Score</li>
-        </ul>
-        <div>
-          <label>Total Score</label>
-          <span id="total-score">0</span>
-        </div>
-      </div>
-    </div>
-    <div id="level-meter">
-      <label id="exp-countdown"></label>
-      <div id="experience"></div>
-    </div>
-    <ul id="controls">
-      <li id="share">
-        <img src="assets/share.svg">
-        <br><label>share</label>
-      </li>
-      <li id="score">
-        <img src="assets/score.svg">
-        <br><label>score</label>
-      </li>
-      <li id="test">
-        <img src="assets/try.svg">
-        <br><label>test</label>
-      </li>
-      <li id="listen">
-        <img src="assets/listen.svg">
-        <br><label>listen</label>
-      </li>
-      <li id="rules">
-        <img src="assets/rules.svg">
-        <br><label>rules</label>
-        <div id="rule-modal">
-          <ol>
-            <li>Listen <img src="assets/listen.svg"> to the sample melody.</li>
-            <li>Drag the fraction blocks onto the board and try to match the sample melody. Use the test <img src="assets/play.svg"> button to play your new melody.</li>
-            <li>Once you think you've got it right, check <img src="assets/score.svg"> how closely you matched the sample. Add the points to your total score to move on to a new melody.</li>
-            <li>If you're feeling creative, make your own melody and share <img src="assets/share.svg"> it so other kids can play it!</li>
-          </ol>
-        </div>
-      </li>
-      <span id="level">Level 1<span>
-    </ul>
+  <div id="intro">
+    <img src="assets/logo-orange.svg" />
+    <div><div class="button"><h1>Play Now</h1></div></div>
+    <div id="intro-bar"></div>
   </div>
-  <div id="play-area">
-    <div id="composer">
-      <div class="whole">
-        <div class="clear" id="clear">Clear Board</div>
-        <div id="grid">
-          <div class="column" data-col="0">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="1">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="2">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="3">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="4">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="5">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="6">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-          </div>
-          <div class="column" data-col="7">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
+  <div id="container">
+    <div id="header">
+      <div id="top">
+        <img id="logo" src="assets/logo.svg" alt="mezzo">
+        <span id="instructions"></span>
+        <div id="scoring">
+          <ul>
+            <li id="submit">Submit Score</li>
+          </ul>
+          <div>
+            <label>Total Score</label>
+            <span id="total-score">0</span>
           </div>
         </div>
-        <span class="num">1<span>
       </div>
+      <div id="level-meter">
+        <label id="exp-countdown"></label>
+        <div id="experience"></div>
+      </div>
+      <ul id="controls">
+        <li id="share">
+          <img src="assets/share.svg">
+          <br><label>share</label>
+        </li>
+        <li id="score">
+          <img src="assets/score.svg">
+          <br><label>score</label>
+        </li>
+        <li id="test">
+          <img src="assets/try.svg">
+          <br><label>test</label>
+        </li>
+        <li id="listen">
+          <img src="assets/listen.svg">
+          <br><label>listen</label>
+        </li>
+        <li id="rules">
+          <img src="assets/rules.svg">
+          <br><label>rules</label>
+          <div id="rule-modal">
+            <ol>
+              <li>Listen <img src="assets/listen.svg"> to the sample melody.</li>
+              <li>Drag the fraction blocks onto the board and try to match the sample melody. Use the test <img src="assets/play.svg"> button to play your new melody.</li>
+              <li>Once you think you've got it right, check <img src="assets/score.svg"> how closely you matched the sample. Add the points to your total score to move on to a new melody.</li>
+              <li>If you're feeling creative, make your own melody and share <img src="assets/share.svg"> it so other kids can play it!</li>
+            </ol>
+          </div>
+        </li>
+        <span id="level">Level 1<span>
+      </ul>
     </div>
-    <div id="source-container">
-      <div class="source half">
-        <div class="pep half" data-duration="4" data-origin="true"><span class="numerator">1</span><br>2</div>
+    <div id="play-area">
+      <div id="composer">
+        <div class="whole">
+          <div class="clear" id="clear">Clear Board</div>
+          <div id="grid">
+            <div class="column" data-col="0">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="1">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="2">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="3">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="4">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="5">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="6">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+            <div class="column" data-col="7">
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+            </div>
+          </div>
+          <span class="num">1<span>
+        </div>
       </div>
-      <div class="source fourth">
-        <div class="pep fourth" data-duration="2" data-origin="true"><span class="numerator">1</span><br>4</div>
-      </div>
-      <div class="source eighth">
-        <div class="pep eighth" data-duration="1" data-origin="true"><span class="numerator">1</span><br>8</div>
+      <div id="source-container">
+        <div class="source half">
+          <div class="pep half" data-duration="4" data-origin="true"><span class="numerator">1</span><br>2</div>
+        </div>
+        <div class="source fourth">
+          <div class="pep fourth" data-duration="2" data-origin="true"><span class="numerator">1</span><br>4</div>
+        </div>
+        <div class="source eighth">
+          <div class="pep eighth" data-duration="1" data-origin="true"><span class="numerator">1</span><br>8</div>
+        </div>
       </div>
     </div>
   </div>
